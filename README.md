@@ -42,6 +42,32 @@ source intake
 - `examples/`: exemplos bons e ruins de destilação.
 - `schemas/`: contratos textuais para notas e artefatos.
 
+## Projeto De Fonte
+
+Antes de destilar uma fonte grande, crie um projeto de fonte:
+
+```text
+project/
+  README.md
+  source-manifest.md
+  promotion-matrix.md
+  raw/
+  library/
+  distillations/
+  promotions/
+  method-wiki/
+  operations/
+  agent-product/
+```
+
+O comando base é:
+
+```bash
+python3 tools/create-source-project.py caminho/do/projeto --source-type youtube-channel
+```
+
+Use `source-manifest.md` para registrar a intenção editorial e `promotion-matrix.md` para decidir o que vira conhecimento, método, operação, agente-produto, arquivo ou descarte.
+
 ## Primeiro Caso Canônico
 
 O caso `a-life-after-layoff` é o padrão inicial para intake de canal:
@@ -61,7 +87,7 @@ O script `tools/build-youtube-library.py` existe para recriar esse tipo de bibli
 
 - `social-signal-research`: Reddit, HN, X, YouTube e comunidades como sinais de dor e tendência.
 - `earnings-call-intelligence`: transcrições de resultados de companhias abertas para detectar tendências, práticas de gestão e movimentos setoriais.
-- `agent-product-scaffold`: geração de repositório padrão para agentes-produto.
+- `agent-product-scaffold`: geração de repositório padrão para agentes-produto, mantido como próxima camada depois de projetos de fonte.
 
 ## Regra De Ouro
 

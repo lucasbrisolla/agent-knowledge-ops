@@ -17,12 +17,13 @@ Uma ideia só deve virar framework, skill ou ferramenta quando tiver:
 
 | Módulo | Status | Ideia |
 |---|---|---|
+| `source-project-setup` | iniciado | Criar estrutura padrão para organizar fontes grandes |
 | `youtube-channel-intake` | iniciado | Criar bibliotecas locais de canais e playlists |
 | `book-distillation` | iniciado | Destilar livros por capítulo para conhecimento de agente |
 | `social-signal-research` | planejado | Transformar Reddit, HN, X, YouTube e comunidades em sinais |
 | `web-article-intake` | planejado | Capturar sites e artigos como unidades rastreáveis |
 | `earnings-call-intelligence` | ideia registrada | Analisar transcrições de resultados de companhias abertas |
-| `agent-product-scaffold` | planejado | Gerar repositório padrão de um agente-produto |
+| `agent-product-scaffold` | no radar | Gerar repositório padrão de um agente-produto |
 
 ## Earnings Call Intelligence
 
@@ -51,9 +52,9 @@ Possíveis saídas:
 - método de análise de resultado
 - skill de leitura de earnings call
 
-## Próxima Prioridade Arquitetural
+## Projeto De Fonte
 
-Definir o scaffold padrão de um projeto criado pelo kit:
+Primeiro pacote operacional para organizar fontes grandes.
 
 ```text
 project/
@@ -67,3 +68,22 @@ project/
   operations/
   agent-product/
 ```
+
+Status:
+
+- framework criado
+- schema criado
+- templates criados
+- skill criada
+- ferramenta `create-source-project.py` criada
+
+## Agente-Produto
+
+Manter no radar, mas não implementar antes de validar bem o ciclo de projeto de fonte.
+
+Critério para avançar:
+
+- pelo menos um projeto de fonte com destilações reais
+- pelo menos uma promotion matrix preenchida
+- pelo menos um método promovido
+- caso de uso recorrente claro

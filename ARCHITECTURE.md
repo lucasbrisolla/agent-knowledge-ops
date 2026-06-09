@@ -92,15 +92,20 @@ Um projeto de fonte é uma instância da refinaria aplicada a uma fonte grande.
 Exemplo:
 
 ```text
-a-life-after-layoff/
+source-project/
   README.md
-  index.md
+  source-manifest.md
+  promotion-matrix.md
   raw/
-  videos/
+  library/
   distillations/
   promotions/
   method-wiki/
+  operations/
+  agent-product/
 ```
+
+O diretório `agent-product/` fica vazio no início. Ele existe para manter o destino no radar, não para forçar produto antes de haver evidência operacional.
 
 ## Contratos Entre Camadas
 
@@ -172,6 +177,7 @@ Saída:
 | Pipeline | Exemplo | Saída Inicial |
 |---|---|---|
 | `youtube-channel-intake` | canal de carreira | biblioteca de vídeos |
+| `source-project-setup` | qualquer fonte grande | scaffold de projeto |
 | `book-distillation` | livro técnico | destilações por capítulo |
 | `social-signal-research` | Reddit, HN, X | clusters de dor e tendência |
 | `web-article-intake` | artigos e sites | mapa de páginas e conceitos |
