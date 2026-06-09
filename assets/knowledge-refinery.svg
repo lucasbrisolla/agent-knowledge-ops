@@ -1,0 +1,100 @@
+<svg width="1440" height="812" viewBox="0 0 1440 812" fill="none" xmlns="http://www.w3.org/2000/svg" role="img" aria-labelledby="title desc">
+  <title id="title">Agent Knowledge Ops refinery</title>
+  <desc id="desc">A stylized knowledge refinery where raw documents enter a processing plant and leave as refined outputs, checklists, and operational chips.</desc>
+
+  <rect width="1440" height="812" fill="#000000"/>
+
+  <g stroke-linecap="round" stroke-linejoin="round">
+    <!-- Input document -->
+    <rect x="98" y="308" width="139" height="176" rx="10" fill="#EFECE3"/>
+    <path d="M108 318H124V474H108C102.477 474 98 469.523 98 464V328C98 322.477 102.477 318 108 318Z" fill="#29495B"/>
+    <rect x="98" y="308" width="139" height="176" rx="10" stroke="#2D5063" stroke-width="4"/>
+    <path d="M149 346H218" stroke="#BDB6A6" stroke-width="3"/>
+    <path d="M149 368H218" stroke="#BDB6A6" stroke-width="3"/>
+    <path d="M149 390H218" stroke="#BDB6A6" stroke-width="3"/>
+    <path d="M149 412H218" stroke="#BDB6A6" stroke-width="3"/>
+    <path d="M149 434H203" stroke="#BDB6A6" stroke-width="3"/>
+
+    <!-- Conveyor -->
+    <path d="M237 458H459" stroke="#25485B" stroke-width="22"/>
+    <path d="M237 458H459" stroke="#345C70" stroke-width="6"/>
+    <circle cx="264" cy="458" r="9" fill="#1D3545" stroke="#456A7E" stroke-width="3"/>
+    <circle cx="312" cy="458" r="9" fill="#1D3545" stroke="#456A7E" stroke-width="3"/>
+    <circle cx="360" cy="458" r="9" fill="#1D3545" stroke="#456A7E" stroke-width="3"/>
+    <circle cx="408" cy="458" r="9" fill="#1D3545" stroke="#456A7E" stroke-width="3"/>
+    <circle cx="456" cy="458" r="9" fill="#1D3545" stroke="#456A7E" stroke-width="3"/>
+
+    <!-- Intake pipes -->
+    <path d="M466 397C485 397 508 403 510 435" stroke="#F5A623" stroke-width="12"/>
+    <path d="M468 457H496V590" stroke="#F5A623" stroke-width="8"/>
+
+    <!-- Platform -->
+    <path d="M481 690H1015" stroke="#234355" stroke-width="44"/>
+    <rect x="496" y="536" width="504" height="156" rx="17" fill="#203D4F" stroke="#345A6D" stroke-width="4"/>
+
+    <!-- Refinery towers -->
+    <rect x="528" y="389" width="67" height="327" rx="15" fill="#29495B" stroke="#42677A" stroke-width="4"/>
+    <ellipse cx="561.5" cy="401" rx="33.5" ry="12" fill="#203D4F" stroke="#42677A" stroke-width="4"/>
+
+    <rect x="596" y="136" width="92" height="580" rx="15" fill="#29495B" stroke="#42677A" stroke-width="4"/>
+    <path d="M598 246H686" stroke="#42677A" stroke-width="12"/>
+    <path d="M598 366H686" stroke="#42677A" stroke-width="12"/>
+    <path d="M598 486H686" stroke="#1D3545" stroke-width="12"/>
+    <circle cx="642" cy="310" r="22" stroke="#78AFC0" stroke-width="3"/>
+    <circle cx="642" cy="310" r="12" stroke="#2DC6BD" stroke-width="3"/>
+
+    <rect x="720" y="100" width="104" height="616" rx="15" fill="#29495B" stroke="#42677A" stroke-width="4"/>
+    <path d="M722 228H822" stroke="#42677A" stroke-width="12"/>
+    <path d="M722 358H822" stroke="#42677A" stroke-width="12"/>
+    <path d="M722 488H822" stroke="#1D3545" stroke-width="12"/>
+    <circle cx="772" cy="286" r="26" stroke="#78AFC0" stroke-width="3"/>
+    <circle cx="772" cy="286" r="14" stroke="#2DC6BD" stroke-width="3"/>
+
+    <rect x="880" y="260" width="57" height="416" rx="10" fill="#29495B" stroke="#42677A" stroke-width="4"/>
+    <ellipse cx="908" cy="236" rx="22" ry="15" fill="#29495B"/>
+    <ellipse cx="928" cy="211" rx="17" ry="12" fill="#29495B"/>
+    <ellipse cx="892" cy="196" rx="13" ry="11" fill="#2A5167"/>
+
+    <!-- Internal flow -->
+    <circle cx="692" cy="580" r="12" fill="#355E72"/>
+    <path d="M704 580H746" stroke="#355E72" stroke-width="12"/>
+    <path d="M828 601L876 574" stroke="#2DC6BD" stroke-width="4"/>
+    <path d="M828 601L876 628" stroke="#2DC6BD" stroke-width="4"/>
+    <circle cx="876" cy="580" r="10" fill="#2DC6BD"/>
+    <circle cx="876" cy="624" r="10" fill="#2DC6BD"/>
+    <circle cx="934" cy="600" r="10" fill="#2DC6BD"/>
+
+    <!-- Output pipe and arrow -->
+    <path d="M1000 600C1037 600 1036 558 1036 528V500H1077" stroke="#F5A623" stroke-width="12"/>
+    <path d="M1044 477L1084 501L1044 526V477Z" fill="none" stroke="#F5A623" stroke-width="8"/>
+
+    <!-- Separator -->
+    <path d="M1100 260V742" stroke="#35627A" stroke-width="2" stroke-dasharray="6 10"/>
+
+    <!-- Output document -->
+    <rect x="1116" y="220" width="124" height="152" rx="13" fill="#2C4D61" stroke="#F5A623" stroke-width="4"/>
+    <path d="M1219 220L1240 241V220H1219Z" fill="#F5A623" opacity="0.45"/>
+    <path d="M1136 253H1219" stroke="#F5A623" stroke-width="10"/>
+    <path d="M1136 276H1200" stroke="#C48F34" stroke-width="7"/>
+    <path d="M1136 296H1212" stroke="#997D46" stroke-width="7"/>
+    <path d="M1136 316H1189" stroke="#7D6C4C" stroke-width="7"/>
+
+    <!-- Output checklist -->
+    <rect x="1116" y="408" width="124" height="144" rx="13" fill="#EFECE3" stroke="#F5A623" stroke-width="4"/>
+    <path d="M1139 446L1149 456L1168 432" stroke="#B96B13" stroke-width="4"/>
+    <path d="M1178 444H1223" stroke="#C7BEAD" stroke-width="3"/>
+    <path d="M1139 478L1149 488L1168 464" stroke="#B96B13" stroke-width="4"/>
+    <path d="M1178 476H1223" stroke="#C7BEAD" stroke-width="3"/>
+    <path d="M1139 510L1149 520L1168 496" stroke="#B96B13" stroke-width="4"/>
+    <path d="M1178 508H1223" stroke="#C7BEAD" stroke-width="3"/>
+
+    <!-- Output chip -->
+    <rect x="1116" y="589" width="136" height="136" rx="16" fill="#29495B" stroke="#2DC6BD" stroke-width="4"/>
+    <rect x="1148" y="621" width="72" height="72" rx="8" fill="#0F2634" stroke="#2DC6BD" stroke-width="2"/>
+    <path d="M1172 590V604M1196 590V604M1220 590V604" stroke="#2DC6BD" stroke-width="4"/>
+    <path d="M1172 724V740M1196 724V740M1220 724V740" stroke="#2DC6BD" stroke-width="4"/>
+    <path d="M1117 632H1132M1117 656H1132M1117 680H1132" stroke="#2DC6BD" stroke-width="4"/>
+    <path d="M1252 632H1268M1252 656H1268M1252 680H1268" stroke="#2DC6BD" stroke-width="4"/>
+    <path d="M1172 622V692M1196 622V692M1149 645H1219M1149 668H1219" stroke="#2DC6BD" stroke-width="1.5" opacity="0.75"/>
+  </g>
+</svg>

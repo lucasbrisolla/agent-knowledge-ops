@@ -20,6 +20,8 @@ Uma ideia só deve virar framework, skill ou ferramenta quando tiver:
 | `source-project-setup` | iniciado | Criar estrutura padrão para organizar fontes grandes |
 | `youtube-channel-intake` | iniciado | Criar bibliotecas locais de canais e playlists |
 | `book-distillation` | iniciado | Destilar livros por capítulo para conhecimento de agente |
+| `book-collection-setup` | iniciado | Criar README editorial e índice de livros no padrão `books/` |
+| `book-to-method-wiki` | iniciado | Promover capítulos de livros para `_method-wiki` com baixo risco de erro |
 | `social-signal-research` | planejado | Transformar Reddit, HN, X, YouTube e comunidades em sinais |
 | `web-article-intake` | planejado | Capturar sites e artigos como unidades rastreáveis |
 | `earnings-call-intelligence` | ideia registrada | Analisar transcrições de resultados de companhias abertas |

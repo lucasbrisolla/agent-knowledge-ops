@@ -39,6 +39,20 @@ project/
   agent-product/
 ```
 
+## Templates Disponíveis
+
+Use `--template` para aplicar defaults editoriais:
+
+- `youtube`: canal ou playlist de YouTube, unidade principal `vídeo`.
+- `book`: livro, unidade principal `capítulo`.
+- `earnings-calls`: resultados de empresas abertas, unidade principal `empresa + trimestre`.
+
+Exemplo:
+
+```bash
+python3 tools/create-source-project.py ../canal-carreira --template youtube
+```
+
 ## Guardrails
 
 - Não começar pela skill; comece pela fonte e pelo manifest.

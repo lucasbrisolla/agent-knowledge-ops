@@ -2,45 +2,27 @@
 
 Kit operacional para transformar fontes brutas em conhecimento refinado, método reutilizável e capacidades operacionais para agentes.
 
-Este diretório é o scaffold local do vault para o repositório `lucasbrisolla/agent-knowledge-ops`.
+![Agent Knowledge Ops refinery](assets/knowledge-refinery.svg)
 
 ## Tese
 
 Agentes melhores não precisam apenas de mais contexto. Eles precisam de conhecimento promovido com critério.
 
-O fluxo central é:
-
 ```text
 source intake
+-> library
 -> distillation
--> knowledge
--> method
--> operation
+-> promotion decision
+-> knowledge / method / operation
 -> agent product
 ```
 
-## Camadas
+## O Que Este Kit Faz
 
-| Camada | Pergunta | Saída |
-|---|---|---|
-| `source intake` | Como a matéria-prima entra? | canal, playlist, livro, artigo, post, site |
-| `distillation` | O que a fonte disse de útil? | nota rastreável por unidade |
-| `knowledge` | O que o agente agora sabe? | conceito, princípio, warning, pergunta |
-| `method` | Como o agente deve pensar? | heurística, checklist, pattern, processo |
-| `operation` | O que o agente consegue fazer? | skill, workflow, playbook, template |
-| `agent product` | Isso já merece produto próprio? | arquitetura mínima validada |
-
-## Estrutura
-
-- `FRAMEWORK.md`: visão geral do ciclo completo.
-- `ARCHITECTURE.md`: separação entre captação, biblioteca, destilação, promoção, método, operação e produto.
-- `ROADMAP.md`: ideias futuras sem misturar com o núcleo estável.
-- `frameworks/`: frameworks irmãos de destilação, promoção e arquitetura mínima.
-- `tools/`: scripts reutilizáveis para materializar bibliotecas e artefatos.
-- `templates/`: formatos reutilizáveis para livros, fontes e decisões de promoção.
-- `skills/`: futuros procedimentos executáveis.
-- `examples/`: exemplos bons e ruins de destilação.
-- `schemas/`: contratos textuais para notas e artefatos.
+- organiza fontes grandes em projetos rastreáveis
+- separa fonte bruta, biblioteca, destilação e promoção
+- transforma unidades de conhecimento em method-wiki, workflows, skills e templates
+- mantém agente-produto como destino possível, não como ponto de partida
 
 ## Projeto De Fonte
 
@@ -60,37 +42,34 @@ project/
   agent-product/
 ```
 
-O comando base é:
+Templates disponíveis:
 
-```bash
-python3 tools/create-source-project.py caminho/do/projeto --source-type youtube-channel
-```
+- `youtube`: canal ou playlist, unidade principal `vídeo`
+- `book`: livro, unidade principal `capítulo`
+- `earnings-calls`: resultados de empresas abertas, unidade principal `empresa + trimestre`
 
-Use `source-manifest.md` para registrar a intenção editorial e `promotion-matrix.md` para decidir o que vira conhecimento, método, operação, agente-produto, arquivo ou descarte.
+Para coleções de livros no padrão `books/<tema>/`, use `book-collection-setup`: ele cria o README editorial e o índice por capítulo usados para decidir o que deve ser destilado e promovido.
 
-## Primeiro Caso Canônico
+Quando um livro deve alimentar um `_method-wiki` existente, use `book-to-method-wiki`: ele força destino antes da leitura, preferência por enriquecer arquivos existentes e atualização do índice após a sessão.
 
-O caso `a-life-after-layoff` é o padrão inicial para intake de canal:
+## Estrutura
 
-```text
-YouTube channel
--> yt-dlp raw metadata/transcripts
--> Markdown video library
--> category index
--> selected video distillation
--> promoted method-wiki/skills
-```
+- `AGENTS.md`: instruções canônicas para agentes trabalhando neste repositório
+- `CLAUDE.md`: redirecionamento para `AGENTS.md`
+- `ARCHITECTURE.md`: arquitetura do kit
+- `FRAMEWORK.md`: ciclo completo da refinaria
+- `ROADMAP.md`: direção futura
+- `frameworks/`: modelos conceituais e critérios de decisão
+- `schemas/`: contratos de estrutura
+- `templates/`: arquivos base reutilizáveis
+- `skills/`: procedimentos executáveis por agentes
+- `tools/`: scripts utilitários
+- `examples/`: exemplos de destilação e uso
 
-O script `tools/build-youtube-library.py` existe para recriar esse tipo de biblioteca em novos canais.
-
-## Ideias Futuras Registradas
-
-- `social-signal-research`: Reddit, HN, X, YouTube e comunidades como sinais de dor e tendência.
-- `earnings-call-intelligence`: transcrições de resultados de companhias abertas para detectar tendências, práticas de gestão e movimentos setoriais.
-- `agent-product-scaffold`: geração de repositório padrão para agentes-produto, mantido como próxima camada depois de projetos de fonte.
+Para uso operacional, comece por `AGENTS.md` e pelos scripts em `tools/`.
 
 ## Regra De Ouro
 
 Fonte bruta não entra direto no agente.
 
-Ela passa por uma destilação rastreável, depois por uma decisão de promoção, e só então vira conhecimento canônico, método ou operação.
+Ela passa por biblioteca, destilação e decisão de promoção antes de virar conhecimento canônico, método ou operação.

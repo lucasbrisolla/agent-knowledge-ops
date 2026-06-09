@@ -19,10 +19,40 @@ DIRECTORIES = [
     "agent-product",
 ]
 
+TEMPLATES = {
+    "youtube": {
+        "source_type": "youtube-channel",
+        "unit": "vídeo",
+        "granularity": "um vídeo por destilação",
+        "coverage": "um vídeo tem metadados, transcrição ou justificativa de ausência, categoria e link de origem",
+        "priority": "priorizar vídeos canônicos, recorrentes ou com método explícito",
+    },
+    "book": {
+        "source_type": "book",
+        "unit": "capítulo",
+        "granularity": "um capítulo ou seção por destilação",
+        "coverage": "um capítulo tem tese, ideias reutilizáveis, trechos de evidência e decisão de promoção",
+        "priority": "priorizar capítulos com método, taxonomia, processo, checklist ou mudança de julgamento",
+    },
+    "earnings-calls": {
+        "source_type": "earnings-calls",
+        "unit": "empresa + trimestre",
+        "granularity": "uma call, release ou apresentação por destilação",
+        "coverage": "uma empresa + trimestre tem transcrição, métricas materiais, temas recorrentes e sinais setoriais",
+        "priority": "priorizar empresas líderes, mudanças de guidance, pressão de margem, capex, pricing e IA",
+    },
+}
+
 
 def main() -> int:
     parser = argparse.ArgumentParser(description="Cria um projeto de fonte para agent-knowledge-ops.")
     parser.add_argument("project", help="Nome ou caminho do projeto a criar")
+    parser.add_argument(
+        "--template",
+        choices=sorted(TEMPLATES),
+        default="",
+        help="Template de projeto: youtube, book ou earnings-calls",
+    )
     parser.add_argument("--source-type", default="", help="Tipo de fonte, como youtube-channel, book ou earnings-calls")
     parser.add_argument("--source-name", default="", help="Nome da fonte")
     parser.add_argument("--source-url", default="", help="URL ou caminho da fonte")
@@ -38,11 +68,13 @@ def main() -> int:
     for directory in DIRECTORIES:
         (project_path / directory).mkdir(parents=True, exist_ok=True)
 
+    template = TEMPLATES.get(args.template, {})
+    source_type = args.source_type or template.get("source_type", "")
     source_name = args.source_name or project_path.name
-    write_if_missing(project_path / "README.md", render_readme(source_name, args.source_type, args.target_agent))
+    write_if_missing(project_path / "README.md", render_readme(source_name, source_type, args.target_agent, template))
     write_if_missing(
         project_path / "source-manifest.md",
-        render_manifest(source_name, args.source_type, args.source_url, args.target_agent),
+        render_manifest(source_name, source_type, args.source_url, args.target_agent, template),
     )
     write_if_missing(project_path / "promotion-matrix.md", render_promotion_matrix())
 
@@ -57,8 +89,19 @@ def write_if_missing(path: Path, content: str) -> None:
     path.write_text(content.rstrip() + "\n", encoding="utf-8")
 
 
-def render_readme(source_name: str, source_type: str, target_agents: list[str]) -> str:
+def render_readme(source_name: str, source_type: str, target_agents: list[str], template: dict[str, str]) -> str:
     target = ", ".join(target_agents)
+    template_section = ""
+    if template:
+        template_section = f"""
+## Template Aplicado
+
+- Unidade principal: {template["unit"]}
+- Granularidade: {template["granularity"]}
+- Critério de cobertura: {template["coverage"]}
+- Critério de priorização: {template["priority"]}
+"""
+
     return f"""# {source_name}
 
 Projeto de fonte criado com `agent-knowledge-ops`.
@@ -94,13 +137,24 @@ Projeto de fonte criado com `agent-knowledge-ops`.
 | Lote | Unidade/Filtro | Motivo | Status |
 |---|---|---|---|
 | 1 |  |  | `novo` |
+{template_section}
 """
 
 
-def render_manifest(source_name: str, source_type: str, source_url: str, target_agents: list[str]) -> str:
+def render_manifest(
+    source_name: str,
+    source_type: str,
+    source_url: str,
+    target_agents: list[str],
+    template: dict[str, str],
+) -> str:
     agents = "\n".join(f'  - "{agent}"' for agent in target_agents)
     if not agents:
         agents = "  []"
+    unit = template.get("unit", "")
+    granularity = template.get("granularity", "")
+    coverage = template.get("coverage", "")
+    priority = template.get("priority", "")
 
     return f"""---
 project: "{slugify(source_name)}"
@@ -146,9 +200,10 @@ probable_outputs: []
 
 ## Unidade De Trabalho
 
-- Unidade principal:
-- Granularidade:
-- Critério para considerar uma unidade coberta:
+- Unidade principal: {unit}
+- Granularidade: {granularity}
+- Critério para considerar uma unidade coberta: {coverage}
+- Critério de priorização: {priority}
 
 ## Cobertura
 
