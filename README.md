@@ -21,6 +21,7 @@ source intake
 
 - organiza fontes grandes em projetos rastreáveis
 - separa fonte bruta, biblioteca, destilação e promoção
+- sintetiza evidências de múltiplas fontes antes de promover conhecimento
 - transforma unidades de conhecimento em method-wiki, workflows, skills e templates
 - mantém agente-produto como destino possível, não como ponto de partida
 
@@ -65,6 +66,13 @@ Quando um livro deve alimentar um `_method-wiki` existente, use `book-to-method-
 - `skills/`: procedimentos executáveis por agentes
 - `tools/`: scripts utilitários
 - `examples/`: exemplos de destilação e uso
+
+Peças recentes para síntese antes da promoção:
+
+- `frameworks/knowledge-synthesis-framework.md`: deduplicação, conflitos, confiança e síntese multissource
+- `frameworks/source-priority-framework.md`: prioridade de fontes por tipo de pergunta
+- `schemas/evidence-bundle.schema.md`: contrato para agrupar evidências
+- `templates/evidence-bundle.md`: template de pacote de evidência
 
 Para uso operacional, comece por `AGENTS.md` e pelos scripts em `tools/`.
 

@@ -27,6 +27,14 @@ Antes de editar, leia nesta ordem:
 4. `ROADMAP.md`
 5. O framework, schema, template ou skill diretamente relacionado à tarefa
 
+## Backlog Canônico
+
+O backlog deste repositório fica em:
+
+- `/home/lucas/Dropbox/Obsidian Vault/Agent Products/_backlog/backlog-agent-knowledge-ops.md`
+
+Ao priorizar trabalho, consulte esse arquivo antes de abrir novas frentes.
+
 ## Princípio Central
 
 Fonte bruta não entra direto no agente.

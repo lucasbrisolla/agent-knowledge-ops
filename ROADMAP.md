@@ -22,6 +22,7 @@ Uma ideia só deve virar framework, skill ou ferramenta quando tiver:
 | `book-distillation` | iniciado | Destilar livros por capítulo para conhecimento de agente |
 | `book-collection-setup` | iniciado | Criar README editorial e índice de livros no padrão `books/` |
 | `book-to-method-wiki` | iniciado | Promover capítulos de livros para `_method-wiki` com baixo risco de erro |
+| `knowledge-synthesis` | iniciado | Sintetizar evidências de múltiplas fontes antes da promoção |
 | `social-signal-research` | planejado | Transformar Reddit, HN, X, YouTube e comunidades em sinais |
 | `web-article-intake` | planejado | Capturar sites e artigos como unidades rastreáveis |
 | `earnings-call-intelligence` | ideia registrada | Analisar transcrições de resultados de companhias abertas |
@@ -78,6 +79,18 @@ Status:
 - templates criados
 - skill criada
 - ferramenta `create-source-project.py` criada
+
+## Knowledge Synthesis
+
+Pacote para aumentar rigor entre destilação e promoção.
+
+Status:
+
+- `knowledge-synthesis-framework.md` criado
+- `source-priority-framework.md` criado
+- `evidence-bundle.schema.md` criado
+- `evidence-bundle.md` criado
+- exemplo multissource criado
 
 ## Agente-Produto
 

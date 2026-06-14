@@ -41,7 +41,7 @@ agent-products
 | `intake` | Capturar e normalizar | `yt-dlp`, scraping, PDFs, RSS |
 | `libraries` | Criar navegação local | índice de vídeos, capítulos, threads, calls |
 | `distillations` | Extrair valor por unidade | nota por vídeo, capítulo, call, artigo |
-| `knowledge` | Consolidar conhecimento | princípios, warnings, padrões, conceitos |
+| `knowledge` | Consolidar conhecimento | princípios, warnings, padrões, conceitos, evidence bundles |
 | `method-wiki` | Ensinar o agente a pensar | heurísticas, checklists, frameworks |
 | `operations` | Ensinar o agente a agir | skills, playbooks, workflows, templates |
 | `agent-products` | Empacotar produto | README, AGENTS, contratos, exemplos |
@@ -156,6 +156,22 @@ Saída:
 - Warning.
 - Processo.
 
+### Destilação Para Síntese
+
+Entrada:
+
+- Achados de uma ou mais destilações.
+- Fontes com autoridade e frescor diferentes.
+- Pergunta editorial clara.
+
+Saída:
+
+- Evidence bundle.
+- Achados deduplicados.
+- Conflitos e lacunas.
+- Confiança explícita.
+- Recomendação de destino.
+
 ### Method-Wiki Para Operação
 
 Entrada:
@@ -181,6 +197,7 @@ Saída:
 | `book-distillation` | livro técnico | destilações por capítulo |
 | `book-collection-setup` | pasta `books/<tema>/` | README editorial e índice por capítulo |
 | `book-to-method-wiki` | livro com destino em `_method-wiki` | promoção segura para método existente |
+| `knowledge-synthesis` | múltiplas fontes sobre o mesmo achado | evidence bundle com confiança |
 | `social-signal-research` | Reddit, HN, X | clusters de dor e tendência |
 | `web-article-intake` | artigos e sites | mapa de páginas e conceitos |
 | `earnings-call-intelligence` | transcrições de resultados | padrões de gestão e setor |
