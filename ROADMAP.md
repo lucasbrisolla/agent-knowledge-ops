@@ -23,6 +23,7 @@ Uma ideia só deve virar framework, skill ou ferramenta quando tiver:
 | `book-collection-setup` | iniciado | Criar README editorial e índice de livros no padrão `books/` |
 | `book-to-method-wiki` | iniciado | Promover capítulos de livros para `_method-wiki` com baixo risco de erro |
 | `knowledge-synthesis` | iniciado | Sintetizar evidências de múltiplas fontes antes da promoção |
+| `company-web-research` | iniciado | Fazer pesquisa web rastreável sobre empresas, JVs e controladoras antes da destilação |
 | `social-signal-research` | planejado | Transformar Reddit, HN, X, YouTube e comunidades em sinais |
 | `web-article-intake` | planejado | Capturar sites e artigos como unidades rastreáveis |
 | `earnings-call-intelligence` | ideia registrada | Analisar transcrições de resultados de companhias abertas |
@@ -91,6 +92,16 @@ Status:
 - `evidence-bundle.schema.md` criado
 - `evidence-bundle.md` criado
 - exemplo multissource criado
+
+## Company Web Research
+
+Skill para pesquisa web empresarial com foco em rastreabilidade antes da destilação.
+
+Status:
+
+- skill criada
+- integração leve ao fluxo principal documentada
+- próximo passo possível: criar framework ou template de sessão se o padrão se repetir
 
 ## Agente-Produto
 

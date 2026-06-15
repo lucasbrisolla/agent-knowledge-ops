@@ -198,6 +198,7 @@ Saída:
 | `book-collection-setup` | pasta `books/<tema>/` | README editorial e índice por capítulo |
 | `book-to-method-wiki` | livro com destino em `_method-wiki` | promoção segura para método existente |
 | `knowledge-synthesis` | múltiplas fontes sobre o mesmo achado | evidence bundle com confiança |
+| `company-web-research` | empresa, JV ou controladora sem contexto local consolidado | mapa de fontes e achados verificáveis |
 | `social-signal-research` | Reddit, HN, X | clusters de dor e tendência |
 | `web-article-intake` | artigos e sites | mapa de páginas e conceitos |
 | `earnings-call-intelligence` | transcrições de resultados | padrões de gestão e setor |

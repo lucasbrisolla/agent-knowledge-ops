@@ -74,6 +74,11 @@ Peças recentes para síntese antes da promoção:
 - `schemas/evidence-bundle.schema.md`: contrato para agrupar evidências
 - `templates/evidence-bundle.md`: template de pacote de evidência
 
+Skills de apoio a intake e pesquisa:
+
+- `source-project-setup`: cria a estrutura padrão de projeto de fonte
+- `company-web-research`: transforma pesquisa web sobre empresas em contexto verificável antes da destilação
+
 Para uso operacional, comece por `AGENTS.md` e pelos scripts em `tools/`.
 
 ## Regra De Ouro
