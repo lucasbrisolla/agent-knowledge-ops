@@ -27,6 +27,7 @@ Uma ideia só deve virar framework, skill ou ferramenta quando tiver:
 | `social-signal-research` | planejado | Transformar Reddit, HN, X, YouTube e comunidades em sinais |
 | `web-article-intake` | planejado | Capturar sites e artigos como unidades rastreáveis |
 | `earnings-call-intelligence` | ideia registrada | Analisar transcrições de resultados de companhias abertas |
+| `agent-product-decision` | iniciado | Decidir que forma operacional criar antes de scaffoldar agente |
 | `agent-product-scaffold` | no radar | Gerar repositório padrão de um agente-produto |
 
 ## Earnings Call Intelligence
@@ -102,6 +103,20 @@ Status:
 - skill criada
 - integração leve ao fluxo principal documentada
 - próximo passo possível: criar framework ou template de sessão se o padrão se repetir
+
+## Decisão De Forma Operacional
+
+Camada adicionada antes de qualquer scaffold de agente-produto.
+
+Status:
+
+- `frameworks/minimum-agent-product-architecture.md` atualizado para classificar forma operacional
+- `schemas/agent-product-decision.schema.md` criado
+- `templates/agent-product-decision.md` criado
+
+Objetivo:
+
+Evitar que toda fonte boa vire agente completo. A decisão deve escolher a menor forma suficiente: nota, method-wiki, skill, workflow, assistente leve, operador estruturado, sistema de domínio ou plataforma.
 
 ## Agente-Produto
 

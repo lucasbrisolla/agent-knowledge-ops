@@ -18,7 +18,8 @@ Fontes recorrentes de inteligência, como transcrições de resultados de compan
 5. Decisão de promoção
 6. Atualização de method-wiki
 7. Candidato operacional
-8. Checagem de arquitetura mínima
+8. Decisão de forma operacional
+9. Checagem de arquitetura mínima
 ```
 
 ## Princípio Central
@@ -28,6 +29,20 @@ Nem toda fonte merece promoção.
 Nem toda boa ideia merece virar skill.
 
 Nem todo conjunto de conhecimento merece virar agent product.
+
+Antes de criar um agente, decida a menor forma operacional suficiente:
+
+```text
+nota
+-> method-wiki
+-> skill/workflow
+-> assistente leve
+-> operador estruturado
+-> sistema de domínio
+-> plataforma multi-superfície
+```
+
+A pergunta de promoção para agente não é "isso é interessante?". É "qual uso recorrente, output e estado justificam subir de nível?".
 
 ## Unidade De Trabalho
 
@@ -70,6 +85,8 @@ O objetivo da biblioteca é dar rastreabilidade e seleção. Ela não substitui 
 - `playbook-candidate`
 - `workflow-candidate`
 - `skill-candidate`
+- `agent-product-decision`
+- `agent-product-candidate`
 - `discard`
 
 ## Teste De Promoção
@@ -82,6 +99,7 @@ Promova apenas se a saída:
 - evita releitura da fonte
 - serve em mais de um caso
 - tem destino claro
+- tem a menor forma operacional suficiente
 
 ## Estados Editoriais
 
@@ -99,3 +117,25 @@ Promova apenas se a saída:
 O kit deve aumentar critério, não volume.
 
 Se uma destilação vira resumo bonito mas não muda decisão, resposta ou execução, ela ainda não virou conhecimento de agente.
+
+
+## Decisão De Forma Operacional
+
+Use `frameworks/minimum-agent-product-architecture.md` quando uma destilação, evidence bundle ou método começar a pedir produto próprio.
+
+Use `templates/agent-product-decision.md` para registrar a decisão antes de criar agente, skill ou workflow maior.
+
+O resultado esperado não precisa ser sempre agente-produto. Resultados válidos incluem:
+
+- manter como knowledge base
+- promover para method-wiki
+- criar skill
+- criar workflow em produto existente
+- criar assistente leve
+- criar operador estruturado
+- criar sistema operacional de domínio
+- aguardar uso real
+
+Regra:
+
+> Criar a menor forma operacional que resolva a dor atual.
