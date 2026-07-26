@@ -30,6 +30,8 @@ method-wiki
   ↓
 operations
   ↓
+agent-product scaffold
+  ↓
 agent-products
 ```
 
@@ -188,6 +190,26 @@ Saída:
 - Template.
 - Script de apoio.
 
+### Especificação Para Agente-Produto
+
+Entrada:
+
+- Desenho ou especificação do agente.
+- Domínio e fronteira claros.
+- Usuário e uso recorrente conhecidos ou explicitamente pendentes.
+- Output esperado.
+
+Saída:
+
+- Scaffold navegável de agente-produto.
+- `CLAUDE.md` e `AGENTS.md` de entrada.
+- `DATA_CONTRACT.md` para separar sistema, contexto e ingestão.
+- `agent-product-spec.md` preservando a decisão de criação.
+- Pastas de método, workflows, skills, templates, contexto, exemplos e evals.
+- Status inicial `candidate`.
+
+O scaffold cria estrutura e contratos. Ele não cria conhecimento de domínio nem transforma automaticamente um produto candidato em produto ativo.
+
 ## Tipos De Pipelines
 
 | Pipeline | Exemplo | Saída Inicial |
@@ -202,6 +224,7 @@ Saída:
 | `social-signal-research` | Reddit, HN, X | clusters de dor e tendência |
 | `web-article-intake` | artigos e sites | mapa de páginas e conceitos |
 | `earnings-call-intelligence` | transcrições de resultados | padrões de gestão e setor |
+| `agent-product-scaffold` | especificação de agente-produto | casa operacional validável |
 
 ## Guardrail Arquitetural
 
@@ -213,5 +236,7 @@ Cada novo tipo de fonte pode ter uma automação própria, mas todos devem conve
 - destilação por unidade
 - decisão de promoção
 - method-wiki ou operação quando fizer sentido
+
+Quando houver especificação suficiente para um agente-produto, o scaffold deve consumir os contratos existentes em vez de criar uma arquitetura paralela.
 
 Sem esse contrato comum, cada pipeline vira um projeto artesanal isolado.

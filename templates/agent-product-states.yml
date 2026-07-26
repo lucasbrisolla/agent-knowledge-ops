@@ -1,0 +1,23 @@
+product: "{{PRODUCT_SLUG}}"
+states:
+  - candidate
+  - pilot
+  - active
+  - paused
+  - archived
+transitions:
+  candidate:
+    - pilot
+    - archived
+  pilot:
+    - active
+    - candidate
+    - paused
+  active:
+    - paused
+    - archived
+  paused:
+    - pilot
+    - active
+    - archived
+  archived: []

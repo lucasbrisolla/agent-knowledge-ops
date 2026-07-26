@@ -124,6 +124,21 @@ Gerar biblioteca de YouTube a partir de `yt-dlp`:
 python3 tools/build-youtube-library.py --overwrite
 ```
 
+Criar scaffold de agente-produto:
+
+```bash
+python3 tools/create-agent-product.py ../meu-agente \
+  --product-name "Meu Agente" \
+  --description "Papel e fronteira do agente." \
+  --domain "Domínio do agente"
+```
+
+Validar scaffold de agente-produto:
+
+```bash
+python3 tools/validate-agent-product.py ../meu-agente
+```
+
 Validar sintaxe de scripts sem gerar `__pycache__`:
 
 ```bash
@@ -139,7 +154,7 @@ python3 -c "import ast, pathlib; ast.parse(pathlib.Path('tools/create-source-pro
 
 ## Próxima Camada No Radar
 
-O scaffold de agente-produto é importante, mas vem depois de projetos de fonte reais gerarem:
+O scaffold de agente-produto pode ser criado a partir de uma especificação, mas o produto só deve ser ativado depois de:
 
 - destilações úteis
 - promotion matrix preenchida

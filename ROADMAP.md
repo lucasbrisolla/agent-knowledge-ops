@@ -28,7 +28,7 @@ Uma ideia só deve virar framework, skill ou ferramenta quando tiver:
 | `web-article-intake` | planejado | Capturar sites e artigos como unidades rastreáveis |
 | `earnings-call-intelligence` | ideia registrada | Analisar transcrições de resultados de companhias abertas |
 | `agent-product-decision` | iniciado | Decidir que forma operacional criar antes de scaffoldar agente |
-| `agent-product-scaffold` | no radar | Gerar repositório padrão de um agente-produto |
+| `agent-product-scaffold` | iniciado | Gerar e validar a casa operacional de um agente-produto |
 
 ## Earnings Call Intelligence
 
@@ -120,7 +120,7 @@ Evitar que toda fonte boa vire agente completo. A decisão deve escolher a menor
 
 ## Agente-Produto
 
-Manter no radar, mas não implementar antes de validar bem o ciclo de projeto de fonte.
+O scaffold foi iniciado. A criação da estrutura pode acontecer a partir de uma especificação de agente, mas a ativação do produto continua condicionada a uso real.
 
 Critério para avançar:
 
@@ -128,3 +128,12 @@ Critério para avançar:
 - pelo menos uma promotion matrix preenchida
 - pelo menos um método promovido
 - caso de uso recorrente claro
+
+Status do scaffold:
+
+- schema de agente-produto criado
+- templates de entrada, contrato, índice, domínio, estado e health check criados
+- skill `agent-product-scaffold` criada
+- `tools/create-agent-product.py` criado
+- `tools/validate-agent-product.py` criado
+- testes de criação e validação criados

@@ -23,7 +23,8 @@ source intake
 - separa fonte bruta, biblioteca, destilação e promoção
 - sintetiza evidências de múltiplas fontes antes de promover conhecimento
 - transforma unidades de conhecimento em method-wiki, workflows, skills e templates
-- mantém agente-produto como destino possível, não como ponto de partida
+- cria e valida o scaffold de um agente-produto quando já houver desenho e fronteira suficientes
+- mantém o agente-produto como `candidate` até existir uso real e avaliação
 
 ## Projeto De Fonte
 
@@ -78,6 +79,17 @@ Skills de apoio a intake e pesquisa:
 
 - `source-project-setup`: cria a estrutura padrão de projeto de fonte
 - `company-web-research`: transforma pesquisa web sobre empresas em contexto verificável antes da destilação
+- `agent-product-scaffold`: cria a casa operacional de um agente-produto a partir de uma especificação
+
+Para criar um agente-produto:
+
+```bash
+python3 tools/create-agent-product.py ../meu-agente \
+  --product-name "Meu Agente" \
+  --description "Papel e fronteira do agente." \
+  --domain "Domínio do agente"
+python3 tools/validate-agent-product.py ../meu-agente
+```
 
 Para uso operacional, comece por `AGENTS.md` e pelos scripts em `tools/`.
 

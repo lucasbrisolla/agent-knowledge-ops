@@ -20,6 +20,7 @@ Fontes recorrentes de inteligência, como transcrições de resultados de compan
 7. Candidato operacional
 8. Decisão de forma operacional
 9. Checagem de arquitetura mínima
+10. Scaffold de agente-produto candidato, se houver especificação suficiente
 ```
 
 ## Princípio Central
@@ -43,6 +44,8 @@ nota
 ```
 
 A pergunta de promoção para agente não é "isso é interessante?". É "qual uso recorrente, output e estado justificam subir de nível?".
+
+Quando a decisão for criar um agente-produto, use `agent-product-scaffold` para gerar a casa operacional mínima. O scaffold não substitui a decisão de promoção e não torna o produto ativo automaticamente.
 
 ## Unidade De Trabalho
 
