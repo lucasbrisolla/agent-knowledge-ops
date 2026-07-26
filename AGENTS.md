@@ -96,6 +96,23 @@ python3 tools/create-source-project.py caminho/do/projeto --template youtube
 - Não apague `raw/` quando a fonte for difícil de recuperar.
 - Não duplique regras entre arquivos de instrução.
 
+## Gatilho De Aperfeiçoamento
+
+Quando o usuário disser que quer melhorar um agente, um Agent Product ou o `agent-knowledge-ops`, especialmente ao fornecer vários MDs, frameworks, posts, diagramas ou propostas de arquitetura, use `reviewing-agent-architecture`.
+
+Fluxo obrigatório:
+
+```text
+inventário das fontes
+-> destilação e síntese
+-> comparação com a arquitetura atual
+-> matriz incorporar/adaptar/rejeitar/adiar
+-> aprovação do usuário
+-> implementação e validação
+```
+
+O modo padrão é `review`: não alterar o agente antes da aprovação. Use `apply` somente quando o usuário aprovar as mudanças propostas.
+
 ## Regras De Edição
 
 - Escreva documentação em pt-BR com acentuação correta.

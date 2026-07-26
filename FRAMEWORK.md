@@ -50,6 +50,8 @@ Quando a decisão for criar um agente-produto, use `agent-product-scaffold` para
 
 Quando o pedido vier diretamente como escopo de criação, use `agent-product-creation`: ela interpreta o escopo, registra a especificação e chama o módulo interno `agent_creator`.
 
+Quando o pedido for melhorar um agente existente a partir de várias fontes, use `reviewing-agent-architecture`. A skill compara as propostas com a arquitetura atual, registra decisões de `incorporar`, `adaptar`, `rejeitar`, `adiar` ou `aguardar uso real` e só implementa após aprovação.
+
 ## Unidade De Trabalho
 
 Escolha uma unidade pequena antes de ler:

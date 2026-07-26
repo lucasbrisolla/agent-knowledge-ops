@@ -1,0 +1,4 @@
+interface:
+  display_name: "Reviewing Agent Architecture"
+  short_description: "Review and improve Agent Product architecture"
+  default_prompt: "Review these architecture sources and recommend improvements for the target agent."

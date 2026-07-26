@@ -30,6 +30,7 @@ Uma ideia só deve virar framework, skill ou ferramenta quando tiver:
 | `agent-product-decision` | iniciado | Decidir que forma operacional criar antes de scaffoldar agente |
 | `agent-product-scaffold` | iniciado | Gerar e validar a casa operacional de um agente-produto |
 | `agent-product-creation` | iniciado | Orquestrar pedido de criação e delegar ao módulo interno `agent_creator` |
+| `reviewing-agent-architecture` | iniciado | Revisar e priorizar melhorias arquiteturais antes de alterar qualquer Agent Product |
 
 ## Earnings Call Intelligence
 
@@ -154,3 +155,19 @@ Próximos passos:
 - criar o primeiro produto real a partir de um caso de uso;
 - promover padrões arquiteturais de fontes externas somente após síntese e avaliação;
 - adicionar perfis arquiteturais quando houver mais de um caso real comparável.
+
+## Aperfeiçoamento Arquitetural
+
+Status:
+
+- skill `reviewing-agent-architecture` criada;
+- template `templates/agent-improvement-review.md` criado;
+- gatilho de linguagem natural adicionado ao `AGENTS.md`;
+- `writing-great-skills` de Matt Pocock adicionado como padrão editorial local para skills.
+
+Regra:
+
+- toda melhoria começa em modo `review`;
+- fontes são destiladas e sintetizadas antes da promoção;
+- mudanças só entram em modo `apply` após aprovação explícita;
+- padrões reutilizáveis podem alimentar o `agent_creator` depois de avaliação.

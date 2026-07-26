@@ -82,6 +82,8 @@ Skills de apoio a intake e pesquisa:
 - `company-web-research`: transforma pesquisa web sobre empresas em contexto verificável antes da destilação
 - `agent-product-scaffold`: cria a casa operacional de um agente-produto a partir de uma especificação
 - `agent-product-creation`: orquestra pedidos de criação e delega o scaffold ao `agent_creator`
+- `reviewing-agent-architecture`: revisa propostas de aperfeiçoamento de qualquer Agent Product antes de aplicar mudanças
+- `writing-great-skills`: padrão editorial do Matt Pocock para criar e revisar skills previsíveis
 
 Para criar um agente-produto:
 
@@ -99,6 +101,8 @@ Para criar a partir de uma especificação aprovada:
 python3 tools/create-agent-product-from-spec.py \
   caminho/agent-product-spec.md ../meu-agente
 ```
+
+Para revisar melhorias arquiteturais, use `reviewing-agent-architecture`. O relatório pode partir de `templates/agent-improvement-review.md` e deve separar análise (`review`) de implementação (`apply`).
 
 Para uso operacional, comece por `AGENTS.md` e pelos scripts em `tools/`.
 
