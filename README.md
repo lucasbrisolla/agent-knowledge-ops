@@ -67,6 +67,7 @@ Quando um livro deve alimentar um `_method-wiki` existente, use `book-to-method-
 - `skills/`: procedimentos executáveis por agentes
 - `tools/`: scripts utilitários
 - `examples/`: exemplos de destilação e uso
+- `agent_creator/`: módulo interno que materializa especificações em Agent Products candidatos
 
 Peças recentes para síntese antes da promoção:
 
@@ -80,6 +81,7 @@ Skills de apoio a intake e pesquisa:
 - `source-project-setup`: cria a estrutura padrão de projeto de fonte
 - `company-web-research`: transforma pesquisa web sobre empresas em contexto verificável antes da destilação
 - `agent-product-scaffold`: cria a casa operacional de um agente-produto a partir de uma especificação
+- `agent-product-creation`: orquestra pedidos de criação e delega o scaffold ao `agent_creator`
 
 Para criar um agente-produto:
 
@@ -89,6 +91,13 @@ python3 tools/create-agent-product.py ../meu-agente \
   --description "Papel e fronteira do agente." \
   --domain "Domínio do agente"
 python3 tools/validate-agent-product.py ../meu-agente
+```
+
+Para criar a partir de uma especificação aprovada:
+
+```bash
+python3 tools/create-agent-product-from-spec.py \
+  caminho/agent-product-spec.md ../meu-agente
 ```
 
 Para uso operacional, comece por `AGENTS.md` e pelos scripts em `tools/`.

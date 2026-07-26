@@ -1,9 +1,12 @@
 ---
 product_id: "{{PRODUCT_SLUG}}"
 product_name: "{{PRODUCT_NAME}}"
+description: "{{DESCRIPTION}}"
 target_domain: "{{DOMAIN}}"
 target_user: "{{TARGET_USER}}"
 source_basis: "{{SOURCE_BASIS}}"
+recurring_use: "{{RECURRING_USE}}"
+repeated_output: "{{REPEATED_OUTPUT}}"
 state_needed: "{{STATE_NEEDED}}"
 verification_needed: "{{VERIFICATION_NEEDED}}"
 recommended_form: "{{RECOMMENDED_FORM}}"

@@ -29,6 +29,7 @@ Uma ideia só deve virar framework, skill ou ferramenta quando tiver:
 | `earnings-call-intelligence` | ideia registrada | Analisar transcrições de resultados de companhias abertas |
 | `agent-product-decision` | iniciado | Decidir que forma operacional criar antes de scaffoldar agente |
 | `agent-product-scaffold` | iniciado | Gerar e validar a casa operacional de um agente-produto |
+| `agent-product-creation` | iniciado | Orquestrar pedido de criação e delegar ao módulo interno `agent_creator` |
 
 ## Earnings Call Intelligence
 
@@ -137,3 +138,19 @@ Status do scaffold:
 - `tools/create-agent-product.py` criado
 - `tools/validate-agent-product.py` criado
 - testes de criação e validação criados
+
+## Módulo Interno `agent_creator`
+
+Status:
+
+- core extraído para `agent_creator/`;
+- templates genéricos e schema movidos para o módulo;
+- criação a partir de especificação Markdown adicionada;
+- validação de enums e campos editoriais adicionada;
+- adapters legados preservados.
+
+Próximos passos:
+
+- criar o primeiro produto real a partir de um caso de uso;
+- promover padrões arquiteturais de fontes externas somente após síntese e avaliação;
+- adicionar perfis arquiteturais quando houver mais de um caso real comparável.

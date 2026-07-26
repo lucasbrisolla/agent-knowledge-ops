@@ -74,6 +74,7 @@ agent-knowledge-ops/
   skills/
   tools/
   examples/
+  agent_creator/
 ```
 
 ## Responsabilidade Dos Diretórios
@@ -86,6 +87,7 @@ agent-knowledge-ops/
 | `skills/` | Procedimentos executáveis por agentes |
 | `tools/` | Scripts utilitários locais |
 | `examples/` | Casos ilustrativos bons e ruins |
+| `agent_creator/` | Materialização e validação de Agent Products candidatos |
 
 ## Arquitetura De Um Projeto De Fonte
 
@@ -209,6 +211,20 @@ Saída:
 - Status inicial `candidate`.
 
 O scaffold cria estrutura e contratos. Ele não cria conhecimento de domínio nem transforma automaticamente um produto candidato em produto ativo.
+
+### Módulo Interno `agent_creator`
+
+O `agent-knowledge-ops` continua interpretando o escopo e registrando a decisão. O módulo interno `agent_creator` recebe a especificação aprovada e materializa a casa operacional:
+
+```text
+decisão de produto
+  ↓
+agent_creator.create
+  ↓
+scaffold + arquitetura inicial + validação
+```
+
+Padrões arquiteturais futuros entram por promoção de fontes e métodos. O creator não recebe conteúdo bruto diretamente.
 
 ## Tipos De Pipelines
 

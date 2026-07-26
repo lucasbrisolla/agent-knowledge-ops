@@ -49,8 +49,10 @@ class CreateAgentProductTest(unittest.TestCase):
 
             readme = (project / "README.md").read_text(encoding="utf-8")
             spec = (project / "agent-product-spec.md").read_text(encoding="utf-8")
+            domain = (project / "domain.md").read_text(encoding="utf-8")
             self.assertIn("# Value Ops", readme)
             self.assertIn("Value Management e execução estratégica", spec)
+            self.assertIn("Value Plan e Benefits Realization Review", domain)
             self.assertNotIn("{{", readme)
             self.assertNotIn("{{", spec)
 

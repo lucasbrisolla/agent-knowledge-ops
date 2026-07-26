@@ -8,6 +8,18 @@
 
 {{TARGET_USER}}
 
+## Uso Recorrente
+
+{{RECURRING_USE}}
+
+## Output Repetido
+
+{{REPEATED_OUTPUT}}
+
+## Fonte-Base
+
+{{SOURCE_BASIS}}
+
 ## Perguntas De Roteamento
 
 - Qual decisão o usuário precisa tomar?

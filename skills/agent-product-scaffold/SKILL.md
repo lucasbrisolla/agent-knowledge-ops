@@ -1,57 +1,36 @@
 ---
 name: agent-product-scaffold
-description: Use quando houver uma especificação de agente-produto e for necessário criar sua casa operacional sem inventar conhecimento de domínio.
+description: Use como adapter legado quando uma especificação aprovada precisar virar um scaffold de Agent Product.
 ---
 
 # Agent Product Scaffold
 
-Use esta skill para transformar uma especificação aprovada em uma estrutura inicial de agente-produto.
+Esta skill preserva o nome histórico do scaffold, mas delega a implementação ao módulo interno `agent_creator`.
 
 ## Quando Usar
 
-- O domínio, usuário e output recorrente já foram descritos.
-- Existe uma decisão de forma operacional ou um desenho inicial do agente.
-- O produto precisa de uma casa própria, mas ainda não deve ser marcado como ativo.
+- O domínio, usuário, uso recorrente e output já foram descritos.
+- Existe uma decisão de forma operacional ou uma especificação aprovada.
+- O produto precisa de uma casa própria, mas ainda deve permanecer como `candidate`.
 
 ## Não Usar Como
 
-- gerador de conhecimento de domínio
-- substituto de `agent-product-decision`
-- criação automática de workflows sem método validado
-- autorização para copiar contexto empresarial ou pessoal para a camada do sistema
-
-## Entrada Mínima
-
-- nome e slug do produto
-- descrição do papel e da fronteira
-- domínio-alvo
-- usuário principal, se conhecido
-- uso recorrente
-- output repetido, se conhecido
-- fonte ou especificação de origem
+- gerador de conhecimento de domínio;
+- substituto da decisão de promoção;
+- criação automática de workflows sem método validado;
+- autorização para copiar contexto empresarial ou pessoal para a camada do sistema.
 
 ## Fluxo
 
-1. Ler `README.md`, `ARCHITECTURE.md`, `FRAMEWORK.md` e o schema de agente-produto.
-2. Confirmar que a especificação não pede produto maior que a evidência disponível.
-3. Executar `tools/create-agent-product.py` com os campos conhecidos.
-4. Revisar `agent-product-spec.md`, `CLAUDE.md` e `DATA_CONTRACT.md`.
-5. Preencher somente o método, workflow, skill, template e evals necessários ao primeiro caso real.
-6. Executar `tools/validate-agent-product.py`.
-7. Manter o status como `candidate` ou `pilot` até haver uso real.
-
-## Saída Esperada
-
-- scaffold completo e navegável
-- contrato de dados explícito
-- especificação preservada
-- routing e guardrails iniciais
-- pastas de método, operação, contexto, exemplos e avaliação
-- validação estrutural sem placeholders pendentes
+1. Use `agent-product-creation` para interpretar o pedido e preparar a especificação.
+2. Execute `tools/create-agent-product-from-spec.py` para materializar o scaffold.
+3. Revise `domain.md`, `DATA_CONTRACT.md`, `PRODUCT_INDEX.md` e `HEALTH_CHECK.md`.
+4. Execute `tools/validate-agent-product.py`.
+5. Mantenha o status como `candidate` ou `pilot` até haver uso real e avaliação.
 
 ## Guardrails
 
-- O scaffold não cria conteúdo específico do domínio.
+- O módulo não cria conteúdo específico do domínio.
 - `context/` é separado de `_method-wiki/`.
-- Um agente-produto candidato não deve ser tratado como fonte canônica ativa.
+- O produto candidato não é fonte canônica ativa.
 - Não adicionar runtime multiagente, banco ou dashboard sem dor operacional demonstrada.

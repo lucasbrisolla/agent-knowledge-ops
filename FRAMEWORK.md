@@ -21,6 +21,7 @@ Fontes recorrentes de inteligência, como transcrições de resultados de compan
 8. Decisão de forma operacional
 9. Checagem de arquitetura mínima
 10. Scaffold de agente-produto candidato, se houver especificação suficiente
+11. Arquitetura inicial do produto candidato, se o pedido for de criação
 ```
 
 ## Princípio Central
@@ -46,6 +47,8 @@ nota
 A pergunta de promoção para agente não é "isso é interessante?". É "qual uso recorrente, output e estado justificam subir de nível?".
 
 Quando a decisão for criar um agente-produto, use `agent-product-scaffold` para gerar a casa operacional mínima. O scaffold não substitui a decisão de promoção e não torna o produto ativo automaticamente.
+
+Quando o pedido vier diretamente como escopo de criação, use `agent-product-creation`: ela interpreta o escopo, registra a especificação e chama o módulo interno `agent_creator`.
 
 ## Unidade De Trabalho
 
@@ -142,3 +145,7 @@ O resultado esperado não precisa ser sempre agente-produto. Resultados válidos
 Regra:
 
 > Criar a menor forma operacional que resolva a dor atual.
+
+## Incorporação De Conhecimento Arquitetural
+
+Frameworks, posts, grafos e outras fontes sobre arquitetura de agentes devem seguir o mesmo ciclo de intake, biblioteca, destilação, síntese e promoção. Só padrões promovidos e avaliados devem alterar templates, perfis ou critérios usados pelo `agent_creator`.

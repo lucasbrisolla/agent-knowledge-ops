@@ -2,6 +2,14 @@
 
 Define a fronteira entre método reutilizável, contexto situado, fontes e estado do produto.
 
+## Decisão Inicial
+
+- Domínio: {{DOMAIN}}
+- Fonte-base: {{SOURCE_BASIS}}
+- Estado necessário: `{{STATE_NEEDED}}`
+- Verificação necessária: `{{VERIFICATION_NEEDED}}`
+- Forma recomendada: `{{RECOMMENDED_FORM}}`
+
 ## Camada Do Sistema
 
 Pode ser atualizada como parte da evolução do agente:

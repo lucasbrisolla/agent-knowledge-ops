@@ -133,6 +133,12 @@ python3 tools/create-agent-product.py ../meu-agente \
   --domain "Domínio do agente"
 ```
 
+Criar agente-produto a partir de uma especificação aprovada:
+
+```bash
+python3 tools/create-agent-product-from-spec.py caminho/agent-product-spec.md ../meu-agente
+```
+
 Validar scaffold de agente-produto:
 
 ```bash
@@ -160,3 +166,5 @@ O scaffold de agente-produto pode ser criado a partir de uma especificação, ma
 - promotion matrix preenchida
 - método promovido
 - caso de uso recorrente
+
+O módulo interno `agent_creator` materializa a especificação e valida a arquitetura inicial. A skill `agent-product-creation` coordena pedidos naturais de criação; ela não substitui a decisão de promoção nem inventa conhecimento de domínio.

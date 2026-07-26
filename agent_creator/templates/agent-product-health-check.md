@@ -2,6 +2,13 @@
 
 Use esta nota para avaliar se o produto está pronto para sair de `candidate` e suportar uso recorrente.
 
+## Escopo Inicial
+
+- Domínio: {{DOMAIN}}
+- Uso recorrente: {{RECURRING_USE}}
+- Output esperado: {{REPEATED_OUTPUT}}
+- Verificação indicada na especificação: `{{VERIFICATION_NEEDED}}`
+
 ## Escala
 
 - `0`: ausente ou apenas implícito.

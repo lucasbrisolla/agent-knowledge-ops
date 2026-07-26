@@ -16,8 +16,16 @@ def main() -> int:
     parser.add_argument("--description", required=True, help="Papel e fronteira do produto")
     parser.add_argument("--domain", required=True, help="Domínio principal atendido")
     parser.add_argument("--target-user", default="[definir]", help="Usuário ou perfil principal")
-    parser.add_argument("--recurring-use", default="[definir]", help="Uso recorrente que justifica o produto")
-    parser.add_argument("--repeated-output", default="[definir]", help="Output que tende a se repetir")
+    parser.add_argument(
+        "--recurring-use",
+        default="Uso recorrente ainda não definido na especificação inicial",
+        help="Uso recorrente que justifica o produto",
+    )
+    parser.add_argument(
+        "--repeated-output",
+        default="Output repetido ainda não definido na especificação inicial",
+        help="Output que tende a se repetir",
+    )
     parser.add_argument(
         "--source-basis",
         default="especificação inicial do produto",
