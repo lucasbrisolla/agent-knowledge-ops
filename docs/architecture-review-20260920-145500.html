@@ -3,7 +3,7 @@
 <head>
   <meta charset="utf-8">
   <meta name="viewport" content="width=device-width, initial-scale=1">
-  <title>Architecture Review — agent-knowledge-ops</title>
+  <title>Architecture Review Pós-implementação — agent-knowledge-ops</title>
   <script src="https://cdn.tailwindcss.com"></script>
   <script type="module">
     import mermaid from 'https://cdn.jsdelivr.net/npm/mermaid@11/dist/mermaid.esm.min.mjs';
@@ -63,19 +63,20 @@
   <main class="mx-auto max-w-7xl px-5 py-8 sm:px-8 lg:px-12">
     <header class="mb-10 grid gap-8 lg:grid-cols-[1.35fr_.65fr] lg:items-end">
       <div>
-        <div class="eyebrow mb-4">architecture review / 20 set 2026</div>
+        <div class="eyebrow mb-4">architecture review / 20 set 2026 / pós-implementação</div>
         <h1 class="max-w-4xl text-4xl font-semibold tracking-tight text-slate-50 sm:text-6xl">Onde o código pode ganhar profundidade</h1>
         <p class="mt-5 max-w-3xl text-lg leading-8 text-slate-300">Uma leitura do <span class="mono text-cyan-200">agent-knowledge-ops</span> procurando módulos rasos, seams que vazam e oportunidades de concentrar complexidade em um lugar testável.</p>
-        <p class="mt-4 max-w-3xl text-sm leading-6 text-slate-400">A análise considera o histórico recente, as mudanças locais e o vocabulário de projeto de módulos profundos. Nenhuma interface concreta está sendo proposta ainda; o objetivo desta etapa é escolher qual oportunidade vale explorar.</p>
+        <p class="mt-4 max-w-3xl text-sm leading-6 text-slate-400">Esta atualização compara a recomendação original com os tickets implementados. O contrato de projeto de fonte agora é executável; os pipelines de livros, YouTube e Agent Products foram alinhados, e os limites que ainda ficaram deliberadamente locais estão registrados como próximos passos.</p>
       </div>
       <div class="glass rounded-2xl p-5">
         <div class="grid grid-cols-2 gap-5">
           <div class="metric"><strong>04</strong><span>candidatos</span></div>
           <div class="metric"><strong>01</strong><span>recomendação principal</span></div>
-          <div class="metric"><strong>14</strong><span>testes aprovados</span></div>
+          <div class="metric"><strong>18</strong><span>testes aprovados</span></div>
+          <div class="metric"><strong>04</strong><span>frentes implementadas</span></div>
           <div class="metric"><strong>00</strong><span>ADRs encontrados</span></div>
         </div>
-        <div class="mt-5 border-t rule pt-4 text-xs leading-5 text-slate-400"><span class="text-slate-200">Escopo:</span> scripts, módulo <span class="mono">agent_creator</span>, skills, schemas e testes. `CONTEXT.md` e `docs/adr/` não existem neste snapshot.</div>
+        <div class="mt-5 border-t rule pt-4 text-xs leading-5 text-slate-400"><span class="text-slate-200">Estado:</span> implementação entregue nos commits <span class="mono">f3e9e82</span> e <span class="mono">1b8fc28</span>. <span class="text-slate-200">Escopo:</span> <span class="mono">source_project</span>, scripts, módulo <span class="mono">agent_creator</span>, skills, schemas e testes. `CONTEXT.md` e `docs/adr/` não existem neste snapshot.</div>
       </div>
     </header>
 
@@ -83,8 +84,8 @@
       <div class="grid gap-7 lg:grid-cols-[.72fr_1.28fr] lg:items-center">
         <div>
           <div class="eyebrow mb-3">mapa de dependências</div>
-          <h2 class="text-2xl font-semibold text-slate-50">O ponto de tensão está entre o contrato e os adaptadores</h2>
-          <p class="mt-3 text-sm leading-6 text-slate-400">O repositório já tem a ideia certa — projetos de fonte e um creator de Agent Products — mas parte do conhecimento necessário para usá-los ainda está espalhada nos callers.</p>
+          <h2 class="text-2xl font-semibold text-slate-50">O seam agora concentra o contrato e deixa os adaptadores menores</h2>
+          <p class="mt-3 text-sm leading-6 text-slate-400">A recomendação principal foi aplicada: projetos de fonte compartilham estrutura, estados e validação executável; os callers ainda retêm detalhes de cada perfil apenas onde a variação é real.</p>
         </div>
         <div class="mermaid">flowchart LR
           A[fonte bruta] --> B[projeto de fonte]
@@ -92,11 +93,11 @@
           C --> D[destilação]
           D --> E[promoção]
           E --> F[method-wiki / operação]
-          B -. contrato ainda duplicado .-> G[book intake]
-          B -. forma paralela .-> H[youtube library]
+          B --> G[book intake]
+          B --> H[youtube library]
           style B fill:#164e63,stroke:#67e8f9,color:#f8fafc
-          style G fill:#3f2f14,stroke:#fcd34d,color:#f8fafc
-          style H fill:#3f2f14,stroke:#fcd34d,color:#f8fafc
+          style G fill:#365314,stroke:#bef264,color:#f8fafc
+          style H fill:#365314,stroke:#bef264,color:#f8fafc
         </div>
       </div>
     </section>
@@ -107,26 +108,26 @@
       <a href="#candidate-2">02 YouTube</a>
       <a href="#candidate-3">03 intake de livros</a>
       <a href="#candidate-4">04 agent_creator</a>
-      <a href="#top-recommendation">top recommendation</a>
+      <a href="#top-recommendation">próximos passos</a>
     </nav>
 
     <section class="space-y-8">
       <article id="candidate-1" class="glass-strong rounded-3xl p-5 sm:p-8">
         <div class="flex flex-wrap items-start justify-between gap-4">
           <div>
-            <div class="eyebrow mb-3">candidato 01 / transversal</div>
-            <h2 class="text-2xl font-semibold tracking-tight text-slate-50 sm:text-3xl">Aprofundar o contrato de projeto de fonte</h2>
+            <div class="eyebrow mb-3">candidato 01 / transversal / implementado</div>
+            <h2 class="text-2xl font-semibold tracking-tight text-slate-50 sm:text-3xl">Contrato de projeto de fonte entregue</h2>
           </div>
-          <span class="badge badge-strong">● Strong</span>
+          <span class="badge badge-strong">● Implementado</span>
         </div>
         <div class="mt-6 grid gap-6 lg:grid-cols-[.9fr_1.1fr]">
           <div class="space-y-5 text-sm leading-6 text-slate-300">
-            <div><div class="eyebrow mb-2">arquivos</div><p class="path">tools/create-source-project.py · tools/create-book-collection.py · tools/extract-book-source.py · tools/build-youtube-library.py · schemas/source-project.schema.md</p></div>
-            <div><div class="eyebrow mb-2">problema</div><p>O schema define uma única forma de projeto, mas cada fluxo conhece uma variação própria. O criador genérico cria sete pastas; a coleção de livros cria apenas <span class="mono text-slate-200">README.md</span> e índice; o intake de livros valida só <span class="mono text-slate-200">raw/</span> e <span class="mono text-slate-200">library/</span>; o YouTube opera com <span class="mono text-slate-200">videos/</span> e <span class="mono text-slate-200">index.md</span> na pasta corrente. O caller precisa aprender invariantes de estrutura, status e destino em vários lugares.</p></div>
-            <div><div class="eyebrow mb-2">solução</div><p>Concentrar a estrutura, os caminhos de artefatos, os estados e a validação em um módulo profundo de projeto de fonte. Os scripts permanecem como adapters; perfis de livro, YouTube e outras fontes passam pelo mesmo seam, com diferenças explícitas onde realmente existem.</p></div>
-            <div><div class="eyebrow mb-2">benefícios</div><p>Mais <strong>locality</strong>: uma mudança no contrato é corrigida uma vez. Mais <strong>leverage</strong>: cada novo intake reutiliza criação e validação. Os testes atravessam o seam do projeto e verificam o contrato completo, em vez de repetir verificações parciais em cada script.</p></div>
+            <div><div class="eyebrow mb-2">arquivos</div><p class="path">source_project/core.py · tools/validate-source-project.py · tools/create-source-project.py · tools/create-book-collection.py · schemas/source-project.schema.md</p></div>
+            <div><div class="eyebrow mb-2">problema original</div><p>O schema descrevia uma única forma de projeto, mas cada fluxo conhecia uma variação própria. Estrutura, status e destino eram verificados em vários callers, com divergências entre livros, intake e YouTube.</p></div>
+            <div><div class="eyebrow mb-2">implementação</div><p><span class="mono text-slate-200">source_project</span> agora concentra diretórios, arquivos obrigatórios, tipos de fonte, estados, manifest, promotion matrix e validação. Os scripts continuam como adapters; perfis de livro e YouTube reutilizam o mesmo layout e deixam suas diferenças explícitas.</p></div>
+            <div><div class="eyebrow mb-2">resultado</div><p>O comando <span class="mono text-slate-200">validate-source-project.py</span> dá feedback estruturado antes da escrita dos pipelines, e os testes cobrem projeto válido, campos inválidos, estrutura incompleta e avisos de diretórios vazios.</p></div>
             <div class="callout rounded-r-xl px-4 py-3 text-xs leading-5 text-amber-100"><strong>Deletion test:</strong> ao deletar o módulo, as regras de layout, status e separação entre <span class="mono">raw/</span>, <span class="mono">library/</span> e promoção reaparecem em todos os callers. A complexidade não desaparece; ela se espalha.</div>
-            <div class="text-xs leading-5 text-slate-500"><strong class="text-slate-300">Evidências:</strong> schema em `schemas/source-project.schema.md:5-39`; layout YouTube em `skills/youtube-channel-intake/SKILL.md:17-25`; validação parcial em `tools/extract-book-source.py:82-110`; backlog já aponta o validador de projeto como próximo melhor passo.</div>
+            <div class="text-xs leading-5 text-slate-500"><strong class="text-slate-300">Evidências pós-implementação:</strong> contrato em `source_project/core.py:1-169`; CLI em `tools/validate-source-project.py`; integração nos criadores e no intake; testes em `tests/test_validate_source_project.py` e `tests/test_create_book_collection.py`.</div>
           </div>
           <div class="grid gap-4 sm:grid-cols-2">
             <div class="diagram-panel">
@@ -143,7 +144,7 @@
               <p class="mini-note mt-4">Quatro fontes de verdade para o mesmo conceito de projeto.</p>
             </div>
             <div class="diagram-panel">
-              <div class="diagram-label">depois / seam explícito</div>
+                <div class="diagram-label">depois / seam implementado</div>
               <div class="stack">
                 <div class="node good text-center">módulo de projeto de fonte<small>contrato + validação + estados</small></div>
                 <div class="grid grid-cols-3 gap-2">
@@ -163,18 +164,18 @@
       <article id="candidate-2" class="glass-strong rounded-3xl p-5 sm:p-8">
         <div class="flex flex-wrap items-start justify-between gap-4">
           <div>
-            <div class="eyebrow mb-3">candidato 02 / pipeline existente</div>
-            <h2 class="text-2xl font-semibold tracking-tight text-slate-50 sm:text-3xl">Aprofundar a biblioteca de YouTube no seam do projeto</h2>
+            <div class="eyebrow mb-3">candidato 02 / pipeline existente / alinhado</div>
+            <h2 class="text-2xl font-semibold tracking-tight text-slate-50 sm:text-3xl">Biblioteca de YouTube alinhada ao projeto de fonte</h2>
           </div>
-          <span class="badge badge-strong">● Strong</span>
+          <span class="badge badge-strong">● Alinhado</span>
         </div>
         <div class="mt-6 grid gap-6 lg:grid-cols-[.9fr_1.1fr]">
           <div class="space-y-5 text-sm leading-6 text-slate-300">
-            <div><div class="eyebrow mb-2">arquivos</div><p class="path">tools/build-youtube-library.py:1-412 · skills/youtube-channel-intake/SKILL.md:17-52 · schemas/youtube-channel-library.schema.md</p></div>
-            <div><div class="eyebrow mb-2">problema</div><p>Um único script mistura descoberta de arquivos, classificação, escolha de legenda, parsing de SRT, normalização, geração de notas, índice e README. Ele parte de <span class="mono text-slate-200">Path.cwd()</span> e escreve <span class="mono text-slate-200">videos/</span>, <span class="mono text-slate-200">index.md</span> e <span class="mono text-slate-200">README.md</span>, enquanto o contrato geral fala em <span class="mono text-slate-200">library/</span>. Não há testes dedicados do builder no inventário atual.</p></div>
-            <div><div class="eyebrow mb-2">solução</div><p>Transformar a biblioteca de YouTube em um módulo profundo que recebe um projeto de fonte e esconde parsing, classificação, renderização e política de sobrescrita. O adapter de CLI apenas traduz argumentos e relata o resultado.</p></div>
-            <div><div class="eyebrow mb-2">benefícios</div><p>Aumenta <strong>depth</strong> na interface do pipeline: callers não precisam conhecer detalhes de SRT, slugs ou tabelas Markdown. Gera <strong>locality</strong> para mudanças na taxonomia e melhora testes de casos como legenda ausente, título inválido e regras customizadas.</p></div>
-            <div class="text-xs leading-5 text-slate-500"><strong class="text-slate-300">Evidências:</strong> orquestração em `tools/build-youtube-library.py:50-94`; escrita de nota em `:178-238`; parsing de SRT em `:241-263`; a própria skill ainda prescreve uma estrutura paralela à do projeto de fonte.</div>
+            <div><div class="eyebrow mb-2">arquivos</div><p class="path">tools/build-youtube-library.py · skills/youtube-channel-intake/SKILL.md · schemas/youtube-channel-library.schema.md · tests/test_build_youtube_library.py</p></div>
+            <div><div class="eyebrow mb-2">problema original</div><p>O script misturava descoberta, classificação, parsing, renderização e escrita. Também partia de <span class="mono text-slate-200">Path.cwd()</span> e produzia <span class="mono text-slate-200">videos/</span> e <span class="mono text-slate-200">index.md</span> fora do contrato geral de <span class="mono text-slate-200">library/</span>.</p></div>
+            <div><div class="eyebrow mb-2">implementação</div><p>A CLI agora aceita <span class="mono text-slate-200">--project</span>, valida o projeto e grava em <span class="mono text-slate-200">library/videos</span>, <span class="mono text-slate-200">library/index.md</span> e <span class="mono text-slate-200">library/README.md</span>. O modo legado por diretório corrente foi preservado para compatibilidade.</p></div>
+            <div><div class="eyebrow mb-2">limite consciente</div><p>O alinhamento estrutural foi entregue sem extrair todo o parsing para um novo módulo interno. Se a taxonomia ou as regras de categoria crescerem, o próximo passo natural é aprofundar esse seam e manter a CLI como adapter fino.</p></div>
+            <div class="text-xs leading-5 text-slate-500"><strong class="text-slate-300">Evidências pós-implementação:</strong> resolução do projeto em `tools/build-youtube-library.py:50-75`; escrita sob `library/` no mesmo script; contrato atualizado em `skills/youtube-channel-intake/SKILL.md` e `schemas/youtube-channel-library.schema.md`; cobertura em `tests/test_build_youtube_library.py`.</div>
           </div>
           <div class="grid gap-4 sm:grid-cols-2">
             <div class="diagram-panel">
@@ -187,7 +188,7 @@
                   <div class="node warn">SRT<small>legendas</small></div>
                 </div>
                 <div class="arrow">↓</div>
-                <div class="node warn">classificar + renderizar + escrever<small>412 linhas no mesmo módulo</small></div>
+                <div class="node warn">classificar + renderizar + escrever<small>responsabilidades ainda no mesmo módulo</small></div>
               </div>
               <p class="mini-note mt-4">O seam real fica escondido entre funções que compartilham caminhos e regras.</p>
             </div>
@@ -196,7 +197,7 @@
               <div class="stack">
                 <div class="node good text-center">adapter de CLI<small>argumentos e saída</small></div>
                 <div class="arrow">↓</div>
-                <div class="node good text-center">módulo YouTube<small>descoberta → normalização → biblioteca</small></div>
+                <div class="node good text-center">builder YouTube com projeto<small>descoberta → normalização → biblioteca</small></div>
                 <div class="grid grid-cols-3 gap-2">
                   <div class="node text-center">metadados<small>interno</small></div>
                   <div class="node text-center">transcrição<small>interno</small></div>
@@ -205,7 +206,7 @@
                 <div class="arrow">↓</div>
                 <div class="node good text-center">projeto de fonte válido<small>artefatos previsíveis</small></div>
               </div>
-              <p class="mini-note mt-4">Um caller ganha uma biblioteca inteira por unidade de conhecimento menor.</p>
+              <p class="mini-note mt-4">O caller recebe artefatos previsíveis; o aprofundamento interno permanece como próximo passo.</p>
             </div>
           </div>
         </div>
@@ -214,19 +215,19 @@
       <article id="candidate-3" class="glass-strong rounded-3xl p-5 sm:p-8">
         <div class="flex flex-wrap items-start justify-between gap-4">
           <div>
-            <div class="eyebrow mb-3">candidato 03 / mudança local recente</div>
-            <h2 class="text-2xl font-semibold tracking-tight text-slate-50 sm:text-3xl">Dar profundidade transacional ao intake de livros</h2>
+            <div class="eyebrow mb-3">candidato 03 / mudança local / implementado</div>
+            <h2 class="text-2xl font-semibold tracking-tight text-slate-50 sm:text-3xl">Intake de livros com commit transacional</h2>
           </div>
-          <span class="badge badge-worth">● Worth exploring</span>
+          <span class="badge badge-strong">● Implementado</span>
         </div>
         <div class="mt-6 grid gap-6 lg:grid-cols-[.9fr_1.1fr]">
           <div class="space-y-5 text-sm leading-6 text-slate-300">
-            <div><div class="eyebrow mb-2">arquivos</div><p class="path">tools/extract-book-source.py:29-317 · tests/test_extract_book_source.py:121-196 · docs/superpowers/specs/2026-08-06-book-intake-integration-design.md:35-80</p></div>
-            <div><div class="eyebrow mb-2">problema</div><p>O novo script concentra configuração, resolução do extrator, validação do projeto, subprocesso, contrato JSON, cópia de arquivos, enriquecimento de metadados e renderização de Markdown. A proteção contra artefatos parciais é boa, mas os testes conhecem o comportamento principalmente por meio de um processo falso; o dicionário de metadados e a renderização continuam acoplados ao fluxo de filesystem.</p></div>
-            <div><div class="eyebrow mb-2">solução</div><p>Concentrar o workflow de intake em um módulo profundo com tipos internos para resultado do extrator, metadados e artefatos finais. Manter o subprocesso e a CLI como adapters internos/externos, preservando o diretório temporário e o commit final somente após sucesso.</p></div>
-            <div><div class="eyebrow mb-2">benefícios</div><p>Mais <strong>locality</strong> para a garantia “ou todos os artefatos, ou nenhum”; mais <strong>leverage</strong> para adicionar campos ao índice, validar metadados ou trocar a política de overwrite. Testes podem atravessar o seam do contrato sem depender de cada detalhe do processo externo.</p></div>
-            <div class="callout rounded-r-xl px-4 py-3 text-xs leading-5 text-amber-100"><strong>Cuidado:</strong> esta é uma mudança recém-adicionada. O ganho só paga a abstração se o intake ganhar variações reais ou continuar recebendo mudanças; caso contrário, manter o script e apenas extrair testes de contrato pode ser suficiente.</div>
-            <div class="text-xs leading-5 text-slate-500"><strong class="text-slate-300">Evidências:</strong> o módulo tem 317 linhas; o teste cobre sucesso, falha, overwrite e projeto incompleto, mas via CLI e extrator falso. A especificação já descreve explicitamente o contrato <span class="mono">raw/</span> + <span class="mono">library/</span>.</div>
+            <div><div class="eyebrow mb-2">arquivos</div><p class="path">tools/extract-book-source.py · tests/test_extract_book_source.py · skills/book-source-intake/SKILL.md</p></div>
+            <div><div class="eyebrow mb-2">problema original</div><p>O intake concentrava configuração, subprocesso, contrato JSON, cópia de arquivos, metadados e renderização. A principal exigência era impedir que uma falha deixasse apenas parte de <span class="mono text-slate-200">raw/</span> ou <span class="mono text-slate-200">library/</span>.</p></div>
+            <div><div class="eyebrow mb-2">implementação</div><p>O fluxo valida o projeto canônico, normaliza a saída em <span class="mono text-slate-200">ExtractorOutput</span>, prepara os artefatos em diretório temporário e usa commit com backup e rollback. Sucesso grava exatamente texto, metadados e índice; falha preserva o estado anterior.</p></div>
+            <div><div class="eyebrow mb-2">resultado</div><p>A garantia “ou todos os artefatos, ou nenhum” agora está concentrada no fluxo de materialização, com testes para sucesso, falha do extrator, overwrite, rollback e projeto incompleto.</p></div>
+            <div class="callout rounded-r-xl px-4 py-3 text-xs leading-5 text-amber-100"><strong>Limite consciente:</strong> a profundidade foi obtida dentro do adapter atual. Um módulo separado só se justifica quando surgirem mais extratores, políticas de overwrite ou perfis editoriais.</div>
+            <div class="text-xs leading-5 text-slate-500"><strong class="text-slate-300">Evidências pós-implementação:</strong> `tools/extract-book-source.py:37-169` define o resultado normalizado; `:302-375` materializa com commit/rollback; a cobertura está em `tests/test_extract_book_source.py`.</div>
           </div>
           <div class="grid gap-4 sm:grid-cols-2">
             <div class="diagram-panel">
@@ -240,20 +241,20 @@
                 <div class="arrow">↓</div>
                 <div class="node warn">raw/ + library/<small>mutação final</small></div>
               </div>
-              <p class="mini-note mt-4">A intenção é correta, mas a interface de teste é o processo inteiro.</p>
+              <p class="mini-note mt-4">A intenção foi preservada; a implementação original era o ponto de partida do ticket.</p>
             </div>
             <div class="diagram-panel">
-              <div class="diagram-label">depois / intake com depth</div>
+              <div class="diagram-label">depois / intake transacional</div>
               <div class="stack">
                 <div class="node good text-center">adapter CLI<small>argumentos</small></div>
                 <div class="arrow">↓</div>
-                <div class="node good text-center">módulo Book Intake<small>contrato de materialização</small></div>
+                <div class="node good text-center">Book Intake<small>contrato de materialização</small></div>
                 <div class="grid grid-cols-2 gap-2">
                   <div class="node text-center">resultado normalizado<small>interno</small></div>
                   <div class="node text-center">índice editorial<small>interno</small></div>
                 </div>
                 <div class="arrow">↓</div>
-                <div class="node good text-center">commit de artefatos<small>atomicidade preservada</small></div>
+                <div class="node good text-center">commit + rollback<small>atomicidade preservada</small></div>
               </div>
               <p class="mini-note mt-4">A fonte externa varia atrás do seam; o contrato do projeto permanece estável.</p>
             </div>
@@ -264,19 +265,19 @@
       <article id="candidate-4" class="glass-strong rounded-3xl p-5 sm:p-8">
         <div class="flex flex-wrap items-start justify-between gap-4">
           <div>
-            <div class="eyebrow mb-3">candidato 04 / contrato já extraído</div>
-            <h2 class="text-2xl font-semibold tracking-tight text-slate-50 sm:text-3xl">Tornar o contrato do agent_creator realmente único</h2>
+            <div class="eyebrow mb-3">candidato 04 / contrato consolidado / implementado</div>
+            <h2 class="text-2xl font-semibold tracking-tight text-slate-50 sm:text-3xl">Contrato único do agent_creator</h2>
           </div>
-          <span class="badge badge-spec">● Speculative</span>
+          <span class="badge badge-strong">● Implementado</span>
         </div>
         <div class="mt-6 grid gap-6 lg:grid-cols-[.9fr_1.1fr]">
           <div class="space-y-5 text-sm leading-6 text-slate-300">
-            <div><div class="eyebrow mb-2">arquivos</div><p class="path">agent_creator/core.py:47-176 · tools/create-agent-product.py:19-74 · tools/agent_product.py:1-29 · agent_creator/ARCHITECTURE.md</p></div>
-            <div><div class="eyebrow mb-2">problema</div><p>O módulo já tem um seam promissor em <span class="mono text-slate-200">ProductSpec</span>, mas o contrato é repetido: campos e enums vivem no core, escolhas e defaults vivem na CLI, e o schema vive em Markdown. Há pequenas assimetrias: o core aceita estados e formas que a CLI não expõe; <span class="mono text-slate-200">target_user</span> existe no objeto, mas não é obrigatório em <span class="mono text-slate-200">REQUIRED_FIELDS</span>; o parser de frontmatter é manual.</p></div>
-            <div><div class="eyebrow mb-2">solução</div><p>Consolidar normalização, campos obrigatórios, enums e defaults em um único módulo de contrato. As duas CLIs, o validador e o arquivo de schema tornam-se adapters da mesma fonte de verdade; detalhes de parsing e templates ficam atrás do seam.</p></div>
-            <div><div class="eyebrow mb-2">benefícios</div><p>Mais <strong>depth</strong> para callers: eles aprendem uma regra, não três. Mais <strong>leverage</strong> quando a especificação evoluir e mais <strong>locality</strong> para mensagens de erro e validação. O teste de contrato pode provar que CLI, Markdown e scaffold convergem para o mesmo resultado.</p></div>
-            <div class="callout rounded-r-xl px-4 py-3 text-xs leading-5 text-amber-100"><strong>Por que é especulativo:</strong> a extração de `agent_creator` é recente e já reduziu bastante a duplicação. Só vale reabrir se surgir um segundo perfil de produto, novas transições de estado ou uma mudança frequente no schema.</div>
-            <div class="text-xs leading-5 text-slate-500"><strong class="text-slate-300">Evidências:</strong> `core.py:61-76` define enums; `create-agent-product.py:34-54` define subconjuntos diferentes; `schemas/agent-product.schema.md` redireciona para o schema canônico, mas não é a fonte executável.</div>
+            <div><div class="eyebrow mb-2">arquivos</div><p class="path">agent_creator/core.py · tools/create-agent-product.py · tools/agent_product.py · agent_creator/schemas/agent-product.schema.md</p></div>
+            <div><div class="eyebrow mb-2">problema original</div><p>O seam em <span class="mono text-slate-200">ProductSpec</span> existia, mas campos, enums, escolhas da CLI e defaults podiam divergir. O contrato documentado em Markdown não era suficiente para impedir interpretações paralelas.</p></div>
+            <div><div class="eyebrow mb-2">implementação</div><p><span class="mono text-slate-200">agent_creator.core</span> agora expõe estados, formas recomendadas, status, usuário padrão e normalização de <span class="mono text-slate-200">target_user</span>. As CLIs e os adapters reutilizam esses valores, enquanto o schema Markdown continua como documentação do contrato.</p></div>
+            <div><div class="eyebrow mb-2">resultado</div><p>Uma alteração nos valores canônicos alcança o core, a CLI e os adapters pelo mesmo seam. O teste de contrato verifica os valores compartilhados e a normalização do usuário opcional.</p></div>
+            <div class="callout rounded-r-xl px-4 py-3 text-xs leading-5 text-amber-100"><strong>Próximo limite:</strong> o parser de frontmatter e os templates ainda são detalhes locais. Eles só precisam de uma nova abstração se surgirem outros formatos de entrada ou perfis de produto.</div>
+            <div class="text-xs leading-5 text-slate-500"><strong class="text-slate-300">Evidências pós-implementação:</strong> valores canônicos em `agent_creator/core.py:61-86`; normalização em `:165-179`; reexportação em `agent_creator/__init__.py` e `tools/agent_product.py`; CLI alinhada em `tools/create-agent-product.py`.</div>
           </div>
           <div class="grid gap-4 sm:grid-cols-2">
             <div class="diagram-panel">
@@ -312,26 +313,26 @@
     </section>
 
     <section id="top-recommendation" class="top-callout mt-10 rounded-2xl p-6 sm:p-8">
-      <div class="eyebrow mb-3 text-lime-300">top recommendation</div>
+      <div class="eyebrow mb-3 text-lime-300">status pós-implementação</div>
       <div class="grid gap-6 lg:grid-cols-[1.1fr_.9fr] lg:items-center">
         <div>
-          <h2 class="text-2xl font-semibold text-slate-50 sm:text-3xl">Começar pelo contrato de projeto de fonte</h2>
-          <p class="mt-4 max-w-3xl text-sm leading-7 text-slate-200">É o seam com maior leverage: toca o backlog explícito do validador de projeto, reduz a divergência entre livros e YouTube e oferece uma base para o intake de livros sem forçar uma abstração prematura dentro dele. A pergunta para a próxima etapa é se os perfis devem compartilhar uma estrutura única ou apenas um contrato comum com adaptações documentadas.</p>
+          <h2 class="text-2xl font-semibold text-slate-50 sm:text-3xl">A recomendação principal foi implementada</h2>
+          <p class="mt-4 max-w-3xl text-sm leading-7 text-slate-200">O seam de projeto de fonte agora concentra a estrutura executável, os estados e a validação. Isso reduziu a divergência entre livros e YouTube, deu ao intake de livros um commit seguro e alinhou o contrato do <span class="mono">agent_creator</span>. A revisão agora muda de “qual oportunidade explorar?” para “onde aprofundar somente se a variação justificar”.</p>
         </div>
         <div class="glass rounded-xl p-5 text-sm leading-6 text-slate-300">
-          <div class="font-semibold text-slate-100">Sequência sugerida</div>
+          <div class="font-semibold text-slate-100">Próximos passos proporcionais</div>
           <ol class="mt-3 list-decimal space-y-2 pl-5">
-            <li>mapear invariantes já existentes;</li>
-            <li>definir o que é comum e o que é perfil;</li>
-            <li>testar o contrato com book e YouTube;</li>
-            <li>só então decidir se o intake de livros também precisa de extração interna.</li>
+            <li>manter <span class="mono">validate-source-project.py</span> como gate dos novos pipelines;</li>
+            <li>aprofundar o builder de YouTube apenas se surgirem novas regras de categoria;</li>
+            <li>extrair o intake de livros para módulo próprio apenas com novos extratores ou perfis;</li>
+            <li>registrar um ADR quando uma dessas decisões deixar de ser local.</li>
           </ol>
         </div>
       </div>
     </section>
 
     <footer class="mt-10 border-t rule pt-5 text-xs leading-6 text-slate-500">
-      <span class="text-slate-300">Método:</span> histórico Git, documentos canônicos, backlog, código e testes locais. Mudanças locais foram preservadas. O relatório é uma exploração arquitetural; não altera o repositório.
+      <span class="text-slate-300">Método:</span> histórico Git, documentos canônicos, backlog, código e testes locais. Atualizado após a implementação dos tickets e os commits <span class="mono">f3e9e82</span> e <span class="mono">1b8fc28</span>. O relatório registra o estado arquitetural; não substitui a especificação nem os tickets.
     </footer>
   </main>
 </body>
