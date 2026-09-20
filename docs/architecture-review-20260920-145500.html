@@ -1,0 +1,338 @@
+<!doctype html>
+<html lang="pt-BR">
+<head>
+  <meta charset="utf-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1">
+  <title>Architecture Review — agent-knowledge-ops</title>
+  <script src="https://cdn.tailwindcss.com"></script>
+  <script type="module">
+    import mermaid from 'https://cdn.jsdelivr.net/npm/mermaid@11/dist/mermaid.esm.min.mjs';
+    mermaid.initialize({ startOnLoad: true, theme: 'dark', securityLevel: 'loose', flowchart: { curve: 'basis' } });
+  </script>
+  <style>
+    :root {
+      --ink: #e7edf5;
+      --muted: #91a0b5;
+      --line: rgba(148, 163, 184, .18);
+      --panel: rgba(15, 23, 42, .74);
+      --panel-strong: rgba(15, 23, 42, .94);
+      --cyan: #67e8f9;
+      --lime: #bef264;
+      --amber: #fcd34d;
+      --rose: #fda4af;
+    }
+    html { scroll-behavior: smooth; }
+    body {
+      color: var(--ink);
+      background:
+        radial-gradient(circle at 15% 0%, rgba(34, 211, 238, .13), transparent 34rem),
+        radial-gradient(circle at 85% 8%, rgba(190, 242, 100, .09), transparent 28rem),
+        #060b14;
+      font-family: Inter, ui-sans-serif, system-ui, -apple-system, BlinkMacSystemFont, "Segoe UI", sans-serif;
+    }
+    .mono { font-family: "IBM Plex Mono", ui-monospace, SFMono-Regular, Menlo, monospace; }
+    .eyebrow { color: var(--cyan); letter-spacing: .18em; text-transform: uppercase; font-size: .68rem; font-weight: 700; }
+    .glass { background: var(--panel); border: 1px solid var(--line); box-shadow: 0 18px 70px rgba(0,0,0,.22); backdrop-filter: blur(16px); }
+    .glass-strong { background: var(--panel-strong); border: 1px solid var(--line); box-shadow: 0 22px 90px rgba(0,0,0,.28); }
+    .rule { border-color: var(--line); }
+    .badge { display: inline-flex; align-items: center; gap: .4rem; border-radius: 999px; padding: .32rem .7rem; font-size: .68rem; font-weight: 800; letter-spacing: .08em; text-transform: uppercase; }
+    .badge-strong { color: #082f49; background: var(--lime); }
+    .badge-worth { color: #422006; background: var(--amber); }
+    .badge-spec { color: #4c0519; background: var(--rose); }
+    .path { color: #c4b5fd; font-family: "IBM Plex Mono", ui-monospace, monospace; font-size: .77rem; }
+    .diagram-panel { min-height: 248px; background: rgba(2, 6, 23, .7); border: 1px solid var(--line); border-radius: 1rem; padding: 1rem; overflow: hidden; }
+    .diagram-label { color: var(--muted); font-size: .66rem; letter-spacing: .16em; text-transform: uppercase; font-weight: 800; margin-bottom: .75rem; }
+    .node { background: linear-gradient(135deg, rgba(30, 41, 59, .96), rgba(15, 23, 42, .96)); border: 1px solid rgba(103, 232, 249, .25); border-radius: .7rem; padding: .62rem .72rem; font-size: .75rem; line-height: 1.2; box-shadow: 0 8px 20px rgba(0,0,0,.2); }
+    .node small { display: block; color: var(--muted); margin-top: .28rem; font-size: .64rem; }
+    .node.warn { border-color: rgba(252, 211, 77, .55); }
+    .node.good { border-color: rgba(190, 242, 100, .55); }
+    .arrow { color: #64748b; font-size: 1.2rem; text-align: center; padding: .18rem; }
+    .stack { display: grid; gap: .45rem; }
+    .mini-note { color: var(--muted); font-size: .73rem; line-height: 1.55; }
+    .mermaid { background: rgba(2, 6, 23, .7); border: 1px solid var(--line); border-radius: 1rem; padding: 1rem; overflow-x: auto; }
+    .toc a { color: #cbd5e1; transition: color .15s ease; }
+    .toc a:hover { color: var(--cyan); }
+    .metric { border-left: 2px solid rgba(103, 232, 249, .45); padding-left: .75rem; }
+    .metric strong { display: block; font-size: 1.25rem; color: #f8fafc; }
+    .metric span { display: block; color: var(--muted); font-size: .7rem; margin-top: .16rem; }
+    .callout { border-left: 3px solid var(--amber); background: rgba(120, 53, 15, .18); }
+    .top-callout { border-left: 3px solid var(--lime); background: rgba(63, 98, 18, .16); }
+  </style>
+</head>
+<body>
+  <main class="mx-auto max-w-7xl px-5 py-8 sm:px-8 lg:px-12">
+    <header class="mb-10 grid gap-8 lg:grid-cols-[1.35fr_.65fr] lg:items-end">
+      <div>
+        <div class="eyebrow mb-4">architecture review / 20 set 2026</div>
+        <h1 class="max-w-4xl text-4xl font-semibold tracking-tight text-slate-50 sm:text-6xl">Onde o código pode ganhar profundidade</h1>
+        <p class="mt-5 max-w-3xl text-lg leading-8 text-slate-300">Uma leitura do <span class="mono text-cyan-200">agent-knowledge-ops</span> procurando módulos rasos, seams que vazam e oportunidades de concentrar complexidade em um lugar testável.</p>
+        <p class="mt-4 max-w-3xl text-sm leading-6 text-slate-400">A análise considera o histórico recente, as mudanças locais e o vocabulário de projeto de módulos profundos. Nenhuma interface concreta está sendo proposta ainda; o objetivo desta etapa é escolher qual oportunidade vale explorar.</p>
+      </div>
+      <div class="glass rounded-2xl p-5">
+        <div class="grid grid-cols-2 gap-5">
+          <div class="metric"><strong>04</strong><span>candidatos</span></div>
+          <div class="metric"><strong>01</strong><span>recomendação principal</span></div>
+          <div class="metric"><strong>14</strong><span>testes aprovados</span></div>
+          <div class="metric"><strong>00</strong><span>ADRs encontrados</span></div>
+        </div>
+        <div class="mt-5 border-t rule pt-4 text-xs leading-5 text-slate-400"><span class="text-slate-200">Escopo:</span> scripts, módulo <span class="mono">agent_creator</span>, skills, schemas e testes. `CONTEXT.md` e `docs/adr/` não existem neste snapshot.</div>
+      </div>
+    </header>
+
+    <section class="glass mb-10 rounded-2xl p-5 sm:p-7">
+      <div class="grid gap-7 lg:grid-cols-[.72fr_1.28fr] lg:items-center">
+        <div>
+          <div class="eyebrow mb-3">mapa de dependências</div>
+          <h2 class="text-2xl font-semibold text-slate-50">O ponto de tensão está entre o contrato e os adaptadores</h2>
+          <p class="mt-3 text-sm leading-6 text-slate-400">O repositório já tem a ideia certa — projetos de fonte e um creator de Agent Products — mas parte do conhecimento necessário para usá-los ainda está espalhada nos callers.</p>
+        </div>
+        <div class="mermaid">flowchart LR
+          A[fonte bruta] --> B[projeto de fonte]
+          B --> C[library]
+          C --> D[destilação]
+          D --> E[promoção]
+          E --> F[method-wiki / operação]
+          B -. contrato ainda duplicado .-> G[book intake]
+          B -. forma paralela .-> H[youtube library]
+          style B fill:#164e63,stroke:#67e8f9,color:#f8fafc
+          style G fill:#3f2f14,stroke:#fcd34d,color:#f8fafc
+          style H fill:#3f2f14,stroke:#fcd34d,color:#f8fafc
+        </div>
+      </div>
+    </section>
+
+    <nav class="toc mb-10 flex flex-wrap gap-x-5 gap-y-2 border-y rule py-4 text-sm">
+      <span class="text-slate-500">Ir para:</span>
+      <a href="#candidate-1">01 contrato de fonte</a>
+      <a href="#candidate-2">02 YouTube</a>
+      <a href="#candidate-3">03 intake de livros</a>
+      <a href="#candidate-4">04 agent_creator</a>
+      <a href="#top-recommendation">top recommendation</a>
+    </nav>
+
+    <section class="space-y-8">
+      <article id="candidate-1" class="glass-strong rounded-3xl p-5 sm:p-8">
+        <div class="flex flex-wrap items-start justify-between gap-4">
+          <div>
+            <div class="eyebrow mb-3">candidato 01 / transversal</div>
+            <h2 class="text-2xl font-semibold tracking-tight text-slate-50 sm:text-3xl">Aprofundar o contrato de projeto de fonte</h2>
+          </div>
+          <span class="badge badge-strong">● Strong</span>
+        </div>
+        <div class="mt-6 grid gap-6 lg:grid-cols-[.9fr_1.1fr]">
+          <div class="space-y-5 text-sm leading-6 text-slate-300">
+            <div><div class="eyebrow mb-2">arquivos</div><p class="path">tools/create-source-project.py · tools/create-book-collection.py · tools/extract-book-source.py · tools/build-youtube-library.py · schemas/source-project.schema.md</p></div>
+            <div><div class="eyebrow mb-2">problema</div><p>O schema define uma única forma de projeto, mas cada fluxo conhece uma variação própria. O criador genérico cria sete pastas; a coleção de livros cria apenas <span class="mono text-slate-200">README.md</span> e índice; o intake de livros valida só <span class="mono text-slate-200">raw/</span> e <span class="mono text-slate-200">library/</span>; o YouTube opera com <span class="mono text-slate-200">videos/</span> e <span class="mono text-slate-200">index.md</span> na pasta corrente. O caller precisa aprender invariantes de estrutura, status e destino em vários lugares.</p></div>
+            <div><div class="eyebrow mb-2">solução</div><p>Concentrar a estrutura, os caminhos de artefatos, os estados e a validação em um módulo profundo de projeto de fonte. Os scripts permanecem como adapters; perfis de livro, YouTube e outras fontes passam pelo mesmo seam, com diferenças explícitas onde realmente existem.</p></div>
+            <div><div class="eyebrow mb-2">benefícios</div><p>Mais <strong>locality</strong>: uma mudança no contrato é corrigida uma vez. Mais <strong>leverage</strong>: cada novo intake reutiliza criação e validação. Os testes atravessam o seam do projeto e verificam o contrato completo, em vez de repetir verificações parciais em cada script.</p></div>
+            <div class="callout rounded-r-xl px-4 py-3 text-xs leading-5 text-amber-100"><strong>Deletion test:</strong> ao deletar o módulo, as regras de layout, status e separação entre <span class="mono">raw/</span>, <span class="mono">library/</span> e promoção reaparecem em todos os callers. A complexidade não desaparece; ela se espalha.</div>
+            <div class="text-xs leading-5 text-slate-500"><strong class="text-slate-300">Evidências:</strong> schema em `schemas/source-project.schema.md:5-39`; layout YouTube em `skills/youtube-channel-intake/SKILL.md:17-25`; validação parcial em `tools/extract-book-source.py:82-110`; backlog já aponta o validador de projeto como próximo melhor passo.</div>
+          </div>
+          <div class="grid gap-4 sm:grid-cols-2">
+            <div class="diagram-panel">
+              <div class="diagram-label">antes / regras espalhadas</div>
+              <div class="stack">
+                <div class="node warn">create-source-project<small>raw / library / …</small></div>
+                <div class="arrow">↓</div>
+                <div class="node warn">book-collection<small>README + book-index</small></div>
+                <div class="arrow">↓</div>
+                <div class="node warn">book-intake<small>valida só 2 pastas</small></div>
+                <div class="arrow">↓</div>
+                <div class="node warn">youtube-library<small>cwd / videos / index</small></div>
+              </div>
+              <p class="mini-note mt-4">Quatro fontes de verdade para o mesmo conceito de projeto.</p>
+            </div>
+            <div class="diagram-panel">
+              <div class="diagram-label">depois / seam explícito</div>
+              <div class="stack">
+                <div class="node good text-center">módulo de projeto de fonte<small>contrato + validação + estados</small></div>
+                <div class="grid grid-cols-3 gap-2">
+                  <div class="node text-center">book<small>perfil</small></div>
+                  <div class="node text-center">YouTube<small>perfil</small></div>
+                  <div class="node text-center">outros<small>perfil</small></div>
+                </div>
+                <div class="arrow">↓</div>
+                <div class="node good text-center">adapters de CLI<small>intake, biblioteca, scaffold</small></div>
+              </div>
+              <p class="mini-note mt-4">Uma interface pequena concentra invariantes e deixa variações locais.</p>
+            </div>
+          </div>
+        </div>
+      </article>
+
+      <article id="candidate-2" class="glass-strong rounded-3xl p-5 sm:p-8">
+        <div class="flex flex-wrap items-start justify-between gap-4">
+          <div>
+            <div class="eyebrow mb-3">candidato 02 / pipeline existente</div>
+            <h2 class="text-2xl font-semibold tracking-tight text-slate-50 sm:text-3xl">Aprofundar a biblioteca de YouTube no seam do projeto</h2>
+          </div>
+          <span class="badge badge-strong">● Strong</span>
+        </div>
+        <div class="mt-6 grid gap-6 lg:grid-cols-[.9fr_1.1fr]">
+          <div class="space-y-5 text-sm leading-6 text-slate-300">
+            <div><div class="eyebrow mb-2">arquivos</div><p class="path">tools/build-youtube-library.py:1-412 · skills/youtube-channel-intake/SKILL.md:17-52 · schemas/youtube-channel-library.schema.md</p></div>
+            <div><div class="eyebrow mb-2">problema</div><p>Um único script mistura descoberta de arquivos, classificação, escolha de legenda, parsing de SRT, normalização, geração de notas, índice e README. Ele parte de <span class="mono text-slate-200">Path.cwd()</span> e escreve <span class="mono text-slate-200">videos/</span>, <span class="mono text-slate-200">index.md</span> e <span class="mono text-slate-200">README.md</span>, enquanto o contrato geral fala em <span class="mono text-slate-200">library/</span>. Não há testes dedicados do builder no inventário atual.</p></div>
+            <div><div class="eyebrow mb-2">solução</div><p>Transformar a biblioteca de YouTube em um módulo profundo que recebe um projeto de fonte e esconde parsing, classificação, renderização e política de sobrescrita. O adapter de CLI apenas traduz argumentos e relata o resultado.</p></div>
+            <div><div class="eyebrow mb-2">benefícios</div><p>Aumenta <strong>depth</strong> na interface do pipeline: callers não precisam conhecer detalhes de SRT, slugs ou tabelas Markdown. Gera <strong>locality</strong> para mudanças na taxonomia e melhora testes de casos como legenda ausente, título inválido e regras customizadas.</p></div>
+            <div class="text-xs leading-5 text-slate-500"><strong class="text-slate-300">Evidências:</strong> orquestração em `tools/build-youtube-library.py:50-94`; escrita de nota em `:178-238`; parsing de SRT em `:241-263`; a própria skill ainda prescreve uma estrutura paralela à do projeto de fonte.</div>
+          </div>
+          <div class="grid gap-4 sm:grid-cols-2">
+            <div class="diagram-panel">
+              <div class="diagram-label">antes / um script largo</div>
+              <div class="stack">
+                <div class="node warn">CLI + cwd<small>raw / videos / index</small></div>
+                <div class="arrow">↓</div>
+                <div class="grid grid-cols-2 gap-2">
+                  <div class="node warn">JSON<small>metadados</small></div>
+                  <div class="node warn">SRT<small>legendas</small></div>
+                </div>
+                <div class="arrow">↓</div>
+                <div class="node warn">classificar + renderizar + escrever<small>412 linhas no mesmo módulo</small></div>
+              </div>
+              <p class="mini-note mt-4">O seam real fica escondido entre funções que compartilham caminhos e regras.</p>
+            </div>
+            <div class="diagram-panel">
+              <div class="diagram-label">depois / biblioteca profunda</div>
+              <div class="stack">
+                <div class="node good text-center">adapter de CLI<small>argumentos e saída</small></div>
+                <div class="arrow">↓</div>
+                <div class="node good text-center">módulo YouTube<small>descoberta → normalização → biblioteca</small></div>
+                <div class="grid grid-cols-3 gap-2">
+                  <div class="node text-center">metadados<small>interno</small></div>
+                  <div class="node text-center">transcrição<small>interno</small></div>
+                  <div class="node text-center">renderização<small>interna</small></div>
+                </div>
+                <div class="arrow">↓</div>
+                <div class="node good text-center">projeto de fonte válido<small>artefatos previsíveis</small></div>
+              </div>
+              <p class="mini-note mt-4">Um caller ganha uma biblioteca inteira por unidade de conhecimento menor.</p>
+            </div>
+          </div>
+        </div>
+      </article>
+
+      <article id="candidate-3" class="glass-strong rounded-3xl p-5 sm:p-8">
+        <div class="flex flex-wrap items-start justify-between gap-4">
+          <div>
+            <div class="eyebrow mb-3">candidato 03 / mudança local recente</div>
+            <h2 class="text-2xl font-semibold tracking-tight text-slate-50 sm:text-3xl">Dar profundidade transacional ao intake de livros</h2>
+          </div>
+          <span class="badge badge-worth">● Worth exploring</span>
+        </div>
+        <div class="mt-6 grid gap-6 lg:grid-cols-[.9fr_1.1fr]">
+          <div class="space-y-5 text-sm leading-6 text-slate-300">
+            <div><div class="eyebrow mb-2">arquivos</div><p class="path">tools/extract-book-source.py:29-317 · tests/test_extract_book_source.py:121-196 · docs/superpowers/specs/2026-08-06-book-intake-integration-design.md:35-80</p></div>
+            <div><div class="eyebrow mb-2">problema</div><p>O novo script concentra configuração, resolução do extrator, validação do projeto, subprocesso, contrato JSON, cópia de arquivos, enriquecimento de metadados e renderização de Markdown. A proteção contra artefatos parciais é boa, mas os testes conhecem o comportamento principalmente por meio de um processo falso; o dicionário de metadados e a renderização continuam acoplados ao fluxo de filesystem.</p></div>
+            <div><div class="eyebrow mb-2">solução</div><p>Concentrar o workflow de intake em um módulo profundo com tipos internos para resultado do extrator, metadados e artefatos finais. Manter o subprocesso e a CLI como adapters internos/externos, preservando o diretório temporário e o commit final somente após sucesso.</p></div>
+            <div><div class="eyebrow mb-2">benefícios</div><p>Mais <strong>locality</strong> para a garantia “ou todos os artefatos, ou nenhum”; mais <strong>leverage</strong> para adicionar campos ao índice, validar metadados ou trocar a política de overwrite. Testes podem atravessar o seam do contrato sem depender de cada detalhe do processo externo.</p></div>
+            <div class="callout rounded-r-xl px-4 py-3 text-xs leading-5 text-amber-100"><strong>Cuidado:</strong> esta é uma mudança recém-adicionada. O ganho só paga a abstração se o intake ganhar variações reais ou continuar recebendo mudanças; caso contrário, manter o script e apenas extrair testes de contrato pode ser suficiente.</div>
+            <div class="text-xs leading-5 text-slate-500"><strong class="text-slate-300">Evidências:</strong> o módulo tem 317 linhas; o teste cobre sucesso, falha, overwrite e projeto incompleto, mas via CLI e extrator falso. A especificação já descreve explicitamente o contrato <span class="mono">raw/</span> + <span class="mono">library/</span>.</div>
+          </div>
+          <div class="grid gap-4 sm:grid-cols-2">
+            <div class="diagram-panel">
+              <div class="diagram-label">antes / workflow concentrado</div>
+              <div class="stack">
+                <div class="node warn">CLI</div>
+                <div class="arrow">↓</div>
+                <div class="node warn">configuração + subprocesso<small>stdout / stderr / código</small></div>
+                <div class="arrow">↓</div>
+                <div class="node warn">dict JSON + render Markdown<small>paths e estado misturados</small></div>
+                <div class="arrow">↓</div>
+                <div class="node warn">raw/ + library/<small>mutação final</small></div>
+              </div>
+              <p class="mini-note mt-4">A intenção é correta, mas a interface de teste é o processo inteiro.</p>
+            </div>
+            <div class="diagram-panel">
+              <div class="diagram-label">depois / intake com depth</div>
+              <div class="stack">
+                <div class="node good text-center">adapter CLI<small>argumentos</small></div>
+                <div class="arrow">↓</div>
+                <div class="node good text-center">módulo Book Intake<small>contrato de materialização</small></div>
+                <div class="grid grid-cols-2 gap-2">
+                  <div class="node text-center">resultado normalizado<small>interno</small></div>
+                  <div class="node text-center">índice editorial<small>interno</small></div>
+                </div>
+                <div class="arrow">↓</div>
+                <div class="node good text-center">commit de artefatos<small>atomicidade preservada</small></div>
+              </div>
+              <p class="mini-note mt-4">A fonte externa varia atrás do seam; o contrato do projeto permanece estável.</p>
+            </div>
+          </div>
+        </div>
+      </article>
+
+      <article id="candidate-4" class="glass-strong rounded-3xl p-5 sm:p-8">
+        <div class="flex flex-wrap items-start justify-between gap-4">
+          <div>
+            <div class="eyebrow mb-3">candidato 04 / contrato já extraído</div>
+            <h2 class="text-2xl font-semibold tracking-tight text-slate-50 sm:text-3xl">Tornar o contrato do agent_creator realmente único</h2>
+          </div>
+          <span class="badge badge-spec">● Speculative</span>
+        </div>
+        <div class="mt-6 grid gap-6 lg:grid-cols-[.9fr_1.1fr]">
+          <div class="space-y-5 text-sm leading-6 text-slate-300">
+            <div><div class="eyebrow mb-2">arquivos</div><p class="path">agent_creator/core.py:47-176 · tools/create-agent-product.py:19-74 · tools/agent_product.py:1-29 · agent_creator/ARCHITECTURE.md</p></div>
+            <div><div class="eyebrow mb-2">problema</div><p>O módulo já tem um seam promissor em <span class="mono text-slate-200">ProductSpec</span>, mas o contrato é repetido: campos e enums vivem no core, escolhas e defaults vivem na CLI, e o schema vive em Markdown. Há pequenas assimetrias: o core aceita estados e formas que a CLI não expõe; <span class="mono text-slate-200">target_user</span> existe no objeto, mas não é obrigatório em <span class="mono text-slate-200">REQUIRED_FIELDS</span>; o parser de frontmatter é manual.</p></div>
+            <div><div class="eyebrow mb-2">solução</div><p>Consolidar normalização, campos obrigatórios, enums e defaults em um único módulo de contrato. As duas CLIs, o validador e o arquivo de schema tornam-se adapters da mesma fonte de verdade; detalhes de parsing e templates ficam atrás do seam.</p></div>
+            <div><div class="eyebrow mb-2">benefícios</div><p>Mais <strong>depth</strong> para callers: eles aprendem uma regra, não três. Mais <strong>leverage</strong> quando a especificação evoluir e mais <strong>locality</strong> para mensagens de erro e validação. O teste de contrato pode provar que CLI, Markdown e scaffold convergem para o mesmo resultado.</p></div>
+            <div class="callout rounded-r-xl px-4 py-3 text-xs leading-5 text-amber-100"><strong>Por que é especulativo:</strong> a extração de `agent_creator` é recente e já reduziu bastante a duplicação. Só vale reabrir se surgir um segundo perfil de produto, novas transições de estado ou uma mudança frequente no schema.</div>
+            <div class="text-xs leading-5 text-slate-500"><strong class="text-slate-300">Evidências:</strong> `core.py:61-76` define enums; `create-agent-product.py:34-54` define subconjuntos diferentes; `schemas/agent-product.schema.md` redireciona para o schema canônico, mas não é a fonte executável.</div>
+          </div>
+          <div class="grid gap-4 sm:grid-cols-2">
+            <div class="diagram-panel">
+              <div class="diagram-label">antes / contrato triplicado</div>
+              <div class="stack">
+                <div class="node warn">Markdown schema<small>documentação</small></div>
+                <div class="grid grid-cols-2 gap-2">
+                  <div class="node warn">core.py<small>enums + parser</small></div>
+                  <div class="node warn">CLI<small>choices + defaults</small></div>
+                </div>
+                <div class="arrow">↓</div>
+                <div class="node warn">ProductSpec<small>convergência parcial</small></div>
+              </div>
+              <p class="mini-note mt-4">O seam existe, mas callers ainda precisam conhecer detalhes paralelos.</p>
+            </div>
+            <div class="diagram-panel">
+              <div class="diagram-label">depois / contrato único</div>
+              <div class="stack">
+                <div class="node good text-center">módulo de contrato ProductSpec<small>campos + enums + defaults</small></div>
+                <div class="grid grid-cols-3 gap-2">
+                  <div class="node text-center">CLI<small>adapter</small></div>
+                  <div class="node text-center">Markdown<small>adapter</small></div>
+                  <div class="node text-center">validator<small>adapter</small></div>
+                </div>
+                <div class="arrow">↓</div>
+                <div class="node good text-center">scaffold candidato<small>uma interpretação</small></div>
+              </div>
+              <p class="mini-note mt-4">Uma regra de contrato produz leverage em todas as entradas.</p>
+            </div>
+          </div>
+        </div>
+      </article>
+    </section>
+
+    <section id="top-recommendation" class="top-callout mt-10 rounded-2xl p-6 sm:p-8">
+      <div class="eyebrow mb-3 text-lime-300">top recommendation</div>
+      <div class="grid gap-6 lg:grid-cols-[1.1fr_.9fr] lg:items-center">
+        <div>
+          <h2 class="text-2xl font-semibold text-slate-50 sm:text-3xl">Começar pelo contrato de projeto de fonte</h2>
+          <p class="mt-4 max-w-3xl text-sm leading-7 text-slate-200">É o seam com maior leverage: toca o backlog explícito do validador de projeto, reduz a divergência entre livros e YouTube e oferece uma base para o intake de livros sem forçar uma abstração prematura dentro dele. A pergunta para a próxima etapa é se os perfis devem compartilhar uma estrutura única ou apenas um contrato comum com adaptações documentadas.</p>
+        </div>
+        <div class="glass rounded-xl p-5 text-sm leading-6 text-slate-300">
+          <div class="font-semibold text-slate-100">Sequência sugerida</div>
+          <ol class="mt-3 list-decimal space-y-2 pl-5">
+            <li>mapear invariantes já existentes;</li>
+            <li>definir o que é comum e o que é perfil;</li>
+            <li>testar o contrato com book e YouTube;</li>
+            <li>só então decidir se o intake de livros também precisa de extração interna.</li>
+          </ol>
+        </div>
+      </div>
+    </section>
+
+    <footer class="mt-10 border-t rule pt-5 text-xs leading-6 text-slate-500">
+      <span class="text-slate-300">Método:</span> histórico Git, documentos canônicos, backlog, código e testes locais. Mudanças locais foram preservadas. O relatório é uma exploração arquitetural; não altera o repositório.
+    </footer>
+  </main>
+</body>
+</html>
