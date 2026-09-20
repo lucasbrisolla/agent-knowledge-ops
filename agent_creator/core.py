@@ -58,22 +58,28 @@ REQUIRED_FIELDS = (
     "status",
 )
 
+STATE_VALUES = ("yes", "no", "unknown")
+VERIFICATION_VALUES = ("none", "doctor", "verify", "sync-check", "liveness", "multiple")
+RECOMMENDED_FORMS = (
+    "do-not-promote",
+    "knowledge-base",
+    "method-wiki",
+    "skill",
+    "workflow",
+    "light-assistant",
+    "structured-operator",
+    "domain-operating-system",
+    "local-first-platform",
+    "wait-for-real-use",
+)
+PRODUCT_STATUSES = ("candidate", "pilot", "active", "paused", "archived")
+DEFAULT_TARGET_USER = "Usuário ainda não definido"
+
 ENUMS = {
-    "state_needed": {"yes", "no", "unknown"},
-    "verification_needed": {"none", "doctor", "verify", "sync-check", "liveness", "multiple"},
-    "recommended_form": {
-        "do-not-promote",
-        "knowledge-base",
-        "method-wiki",
-        "skill",
-        "workflow",
-        "light-assistant",
-        "structured-operator",
-        "domain-operating-system",
-        "local-first-platform",
-        "wait-for-real-use",
-    },
-    "status": {"candidate", "pilot", "active", "paused", "archived"},
+    "state_needed": set(STATE_VALUES),
+    "verification_needed": set(VERIFICATION_VALUES),
+    "recommended_form": set(RECOMMENDED_FORMS),
+    "status": set(PRODUCT_STATUSES),
 }
 
 
@@ -165,7 +171,11 @@ def load_spec(path: Path) -> ProductSpec:
         name=fields["product_name"],
         description=fields["description"],
         domain=fields["target_domain"],
-        target_user=fields.get("target_user", "Usuário ainda não definido"),
+        target_user=(
+            fields.get("target_user", "").strip()
+            if fields.get("target_user", "").strip() not in {"", "[definir]"}
+            else DEFAULT_TARGET_USER
+        ),
         recurring_use=fields["recurring_use"],
         repeated_output=fields["repeated_output"],
         source_basis=fields["source_basis"],

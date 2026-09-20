@@ -6,10 +6,17 @@ from __future__ import annotations
 import argparse
 import json
 import re
+import sys
 import unicodedata
 from dataclasses import dataclass
 from datetime import datetime, timezone
 from pathlib import Path
+
+ROOT = Path(__file__).resolve().parents[1]
+if str(ROOT) not in sys.path:
+    sys.path.insert(0, str(ROOT))
+
+from source_project import validate_project  # noqa: E402
 
 
 VIDEO_URL = "https://www.youtube.com/watch?v={video_id}"
@@ -49,6 +56,11 @@ class VideoNote:
 
 def main() -> int:
     parser = argparse.ArgumentParser(description="Cria videos/*.md e index.md a partir de raw/*.info.json.")
+    parser.add_argument(
+        "--project",
+        default="",
+        help="Projeto de fonte canônico; ativa saídas em library/",
+    )
     parser.add_argument("--raw-dir", default="raw", help="Diretório com .info.json e .srt")
     parser.add_argument("--videos-dir", default="videos", help="Diretório para notas por vídeo")
     parser.add_argument("--index", default="index.md", help="Caminho do índice Markdown")
@@ -58,11 +70,26 @@ def main() -> int:
     parser.add_argument("--overwrite", action="store_true", help="Sobrescreve notas Markdown existentes")
     args = parser.parse_args()
 
-    root = Path.cwd()
-    raw_dir = root / args.raw_dir
-    videos_dir = root / args.videos_dir
-    index_path = root / args.index
-    readme_path = root / args.readme
+    if args.project:
+        project = Path(args.project).expanduser().resolve()
+        report = validate_project(project)
+        if report.errors:
+            raise SystemExit("Projeto de fonte inválido: " + "; ".join(report.errors))
+
+        raw_value = args.raw_dir if args.raw_dir != "raw" else "raw"
+        videos_value = args.videos_dir if args.videos_dir != "videos" else "library/videos"
+        index_value = args.index if args.index != "index.md" else "library/index.md"
+        readme_value = args.readme if args.readme != "README.md" else "library/README.md"
+        raw_dir = resolve_project_path(project, raw_value)
+        videos_dir = resolve_project_path(project, videos_value)
+        index_path = resolve_project_path(project, index_value)
+        readme_path = resolve_project_path(project, readme_value)
+    else:
+        root = Path.cwd()
+        raw_dir = root / args.raw_dir
+        videos_dir = root / args.videos_dir
+        index_path = root / args.index
+        readme_path = root / args.readme
 
     if not raw_dir.exists():
         raise SystemExit(f"Diretório raw não encontrado: {raw_dir}")
@@ -92,6 +119,11 @@ def main() -> int:
     print(f"Com transcrição: {with_transcript}")
     print(f"Sem transcrição: {len(notes) - with_transcript}")
     return 0
+
+
+def resolve_project_path(project: Path, value: str) -> Path:
+    path = Path(value)
+    return path if path.is_absolute() else project / path
 
 
 def load_category_rules(path: str) -> list[tuple[str, list[str]]]:

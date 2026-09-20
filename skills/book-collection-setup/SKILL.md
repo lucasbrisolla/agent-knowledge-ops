@@ -16,13 +16,14 @@ Use esta skill para criar ou revisar uma pasta `books/<tema>/` que servirá como
 
 ## Fluxo
 
-1. Criar pasta `books/<tema>/`.
+1. Criar pasta `books/<tema>/` usando o perfil `book` de um projeto de fonte.
 2. Criar `README.md` com papel editorial, fonte, estratégia e filtro de promoção.
 3. Criar `<tema>-index.md` com mapa por capítulo.
-4. Classificar cada capítulo por status.
-5. Definir destino provável antes da leitura detalhada.
-6. Priorizar capítulos de alta aderência.
-7. Promover apenas conteúdo com lacuna real no agente.
+4. Manter também `source-manifest.md`, `promotion-matrix.md` e as camadas do projeto de fonte.
+5. Classificar cada capítulo por status.
+6. Definir destino provável antes da leitura detalhada.
+7. Priorizar capítulos de alta aderência.
+8. Promover apenas conteúdo com lacuna real no agente.
 
 ## Comando Base
 

@@ -5,6 +5,8 @@ import tempfile
 import unittest
 from pathlib import Path
 
+from source_project import validate_project
+
 
 ROOT = Path(__file__).resolve().parents[1]
 SCRIPT = ROOT / "tools" / "create-book-collection.py"
@@ -43,6 +45,11 @@ class CreateBookCollectionTest(unittest.TestCase):
             self.assertIn("| 1 | Introduction to Budgeting |", index)
             self.assertIn("| 2 | The System of Budgets |", index)
             self.assertIn("`destilar`", index)
+            self.assertTrue((project / "raw").is_dir())
+            self.assertTrue((project / "library").is_dir())
+            self.assertTrue((project / "source-manifest.md").is_file())
+            self.assertTrue((project / "promotion-matrix.md").is_file())
+            self.assertEqual(validate_project(project).errors, ())
 
 
 if __name__ == "__main__":

@@ -16,9 +16,9 @@ Use esta skill para transformar um canal, playlist ou lote de vídeos em uma bib
 
 ## Fluxo
 
-1. Criar pasta do projeto com `raw/`, `videos/`, `distillations/` e `promotions/`.
+1. Criar pasta do projeto com `python3 tools/create-source-project.py caminho --template youtube`.
 2. Baixar metadados e legendas com `yt-dlp`, sem baixar os vídeos.
-3. Rodar `tools/build-youtube-library.py`.
+3. Rodar `tools/build-youtube-library.py --project caminho`.
 4. Revisar categorias geradas.
 5. Marcar vídeos prioritários para destilação.
 6. Usar `youtube-distillation` apenas nos vídeos selecionados.
@@ -42,11 +42,12 @@ yt-dlp "URL_DO_CANAL_OU_PLAYLIST" \
 - Não tratar biblioteca gerada como conhecimento refinado.
 - Não editar manualmente arquivos gerados se eles serão sobrescritos.
 - Não destilar tudo com a mesma profundidade.
+- Não gerar a biblioteca fora de um projeto de fonte validado.
 
 ## Saídas Esperadas
 
-- `README.md` do projeto.
-- `index.md` com tabela navegável.
-- `videos/**/*.md` com frontmatter, descrição, capítulos e transcrição.
+- `library/README.md` com o estado da biblioteca.
+- `library/index.md` com tabela navegável.
+- `library/videos/**/*.md` com frontmatter, descrição, capítulos e transcrição.
 - Lista de vídeos sem transcrição.
 - Lista inicial de prioridades de destilação.

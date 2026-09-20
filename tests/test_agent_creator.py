@@ -112,6 +112,27 @@ class AgentCreatorTest(unittest.TestCase):
             self.assertIn("recommended_form", message)
             self.assertIn("recurring_use", message)
 
+    def test_markdown_contract_normalizes_optional_user_and_accepts_all_core_values(self) -> None:
+        spec_text = VALID_SPEC.replace(
+            'target_user: "Líderes de transformação"',
+            'target_user: "[definir]"',
+        ).replace(
+            'recommended_form: "structured-operator"',
+            'recommended_form: "wait-for-real-use"',
+        ).replace(
+            'status: "candidate"',
+            'status: "active"',
+        )
+        with tempfile.TemporaryDirectory() as tmp:
+            spec_path = Path(tmp) / "agent-product-spec.md"
+            spec_path.write_text(spec_text, encoding="utf-8")
+
+            spec = load_spec(spec_path)
+
+            self.assertEqual(spec.target_user, "Usuário ainda não definido")
+            self.assertEqual(spec.recommended_form, "wait-for-real-use")
+            self.assertEqual(spec.status, "active")
+
     def test_force_preserves_existing_files(self) -> None:
         with tempfile.TemporaryDirectory() as tmp:
             root = Path(tmp)

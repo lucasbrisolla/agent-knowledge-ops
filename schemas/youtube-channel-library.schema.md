@@ -7,14 +7,15 @@ Contrato textual para bibliotecas geradas a partir de canais ou playlists.
 ```text
 project/
   README.md
-  index.md
-  missing-videos.tsv
   raw/
     *.info.json
     *.srt
-  videos/
-    Categoria/
-      yyyy-mm-dd-videoid-slug.md
+  library/
+    README.md
+    index.md
+    videos/
+      Categoria/
+        yyyy-mm-dd-videoid-slug.md
 ```
 
 ## Frontmatter Por Vídeo
@@ -55,6 +56,6 @@ tags: []
 
 - Caminhos de fonte bruta devem permanecer explícitos.
 - O índice pode ser regenerado automaticamente.
-- Notas em `videos/` podem ser sobrescritas quando forem puramente geradas.
-- Destilações humanas ou assistidas por agente devem morar fora de `videos/` ou em seção protegida.
+- Notas em `library/videos/` podem ser sobrescritas quando forem puramente geradas.
+- Destilações humanas ou assistidas por agente devem morar fora de `library/videos/` ou em seção protegida.
 - A taxonomia deve ser revisável sem apagar rastreabilidade.

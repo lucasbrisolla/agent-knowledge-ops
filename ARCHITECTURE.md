@@ -128,6 +128,17 @@ Saída:
 - Status de cobertura.
 - Links para fonte bruta.
 
+Para livros, `tools/extract-book-source.py` delega a extração determinística ao
+`book-to-skill`, persiste `raw/full_text.txt` e `raw/metadata.json` e gera
+`library/book-index.md`. Essa integração termina na biblioteca; não cria skill
+nem pula a destilação ou a decisão de promoção.
+
+Projetos de fonte compartilham um contrato executável em `source_project/`.
+`tools/validate-source-project.py` verifica a estrutura, o manifest, o status e
+a promotion matrix antes de um pipeline escrever seus artefatos. Perfis de
+livro e YouTube podem manter seus índices específicos, mas não criam uma
+segunda estrutura de projeto.
+
 ### Biblioteca Para Destilação
 
 Entrada:

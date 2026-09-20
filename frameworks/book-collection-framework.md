@@ -35,7 +35,10 @@ books/
     promotions/
 ```
 
-Em produtos existentes, `raw/`, `distillations/` e `promotions/` podem ser omitidos no início se o fluxo ainda estiver só no índice editorial.
+Em produtos existentes, as camadas podem permanecer vazias no início se o
+fluxo ainda estiver só no índice editorial, mas a coleção deve preservar o
+contrato do projeto de fonte desde a criação. Isso permite evoluir do índice
+para intake sem migrar manualmente para uma segunda estrutura.
 
 ## README Editorial
 

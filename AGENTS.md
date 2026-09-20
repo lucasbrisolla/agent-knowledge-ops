@@ -76,6 +76,12 @@ Comando base:
 python3 tools/create-source-project.py caminho/do/projeto --template youtube
 ```
 
+Validar um projeto de fonte:
+
+```bash
+python3 tools/validate-source-project.py caminho/do/projeto
+```
+
 ## Responsabilidade Das Camadas
 
 - `raw/`: matéria-prima original ou exportada.
@@ -92,6 +98,7 @@ python3 tools/create-source-project.py caminho/do/projeto --template youtube
 - Não confunda biblioteca com destilação.
 - Não confunda destilação com método.
 - Não crie skill sem método claro.
+- Não trate `raw/` ou `library/` produzidos por `book-source-intake` como conhecimento promovido.
 - Não crie agente-produto por entusiasmo inicial.
 - Não apague `raw/` quando a fonte for difícil de recuperar.
 - Não duplique regras entre arquivos de instrução.
@@ -135,10 +142,20 @@ Criar coleção editorial de livro:
 python3 tools/create-book-collection.py ../books/budgeting --book-title "Budgeting" --target-agent accounting-ops
 ```
 
+Extrair livro para um projeto de fonte:
+
+```bash
+python3 tools/extract-book-source.py caminho/do/projeto caminho/do/livro.epub \
+  --extractor-root /home/lucas/Downloads/book-to-skill-master
+```
+
+O comando grava apenas `raw/full_text.txt`, `raw/metadata.json` e
+`library/book-index.md`. A etapa seguinte é `book-distillation`.
+
 Gerar biblioteca de YouTube a partir de `yt-dlp`:
 
 ```bash
-python3 tools/build-youtube-library.py --overwrite
+python3 tools/build-youtube-library.py --project caminho/do/projeto --overwrite
 ```
 
 Criar scaffold de agente-produto:

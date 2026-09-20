@@ -5,19 +5,15 @@ from __future__ import annotations
 
 import argparse
 import re
+import sys
 from datetime import date
 from pathlib import Path
 
+ROOT = Path(__file__).resolve().parents[1]
+if str(ROOT) not in sys.path:
+    sys.path.insert(0, str(ROOT))
 
-DIRECTORIES = [
-    "raw",
-    "library",
-    "distillations",
-    "promotions",
-    "method-wiki",
-    "operations",
-    "agent-product",
-]
+from source_project import ensure_layout  # noqa: E402
 
 TEMPLATES = {
     "youtube": {
@@ -64,9 +60,7 @@ def main() -> int:
     if project_path.exists() and not args.force:
         raise SystemExit(f"Projeto já existe: {project_path}. Use --force para completar a estrutura.")
 
-    project_path.mkdir(parents=True, exist_ok=True)
-    for directory in DIRECTORIES:
-        (project_path / directory).mkdir(parents=True, exist_ok=True)
+    ensure_layout(project_path)
 
     template = TEMPLATES.get(args.template, {})
     source_type = args.source_type or template.get("source_type", "")

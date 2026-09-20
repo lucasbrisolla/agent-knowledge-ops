@@ -4,8 +4,17 @@
 from __future__ import annotations
 
 import argparse
+import json
 import re
+import sys
+from datetime import date
 from pathlib import Path
+
+ROOT = Path(__file__).resolve().parents[1]
+if str(ROOT) not in sys.path:
+    sys.path.insert(0, str(ROOT))
+
+from source_project import ensure_layout  # noqa: E402
 
 
 def main() -> int:
@@ -23,7 +32,7 @@ def main() -> int:
     if project_path.exists() and not args.force and any(project_path.iterdir()):
         raise SystemExit(f"Pasta já existe e não está vazia: {project_path}. Use --force para completar.")
 
-    project_path.mkdir(parents=True, exist_ok=True)
+    ensure_layout(project_path)
     slug = args.slug or slugify(project_path.name)
     readme_path = project_path / "README.md"
     index_path = project_path / f"{slug}-index.md"
@@ -45,6 +54,16 @@ def main() -> int:
             chapters=args.chapters,
         ),
     )
+    write_if_missing(
+        project_path / "source-manifest.md",
+        render_source_manifest(
+            book_title=args.book_title,
+            target_agent=args.target_agent,
+            source=args.source,
+            project_slug=slug,
+        ),
+    )
+    write_if_missing(project_path / "promotion-matrix.md", render_promotion_matrix())
 
     print(f"Coleção de livro criada: {project_path}")
     print(f"README: {readme_path}")
@@ -56,6 +75,56 @@ def write_if_missing(path: Path, content: str) -> None:
     if path.exists():
         return
     path.write_text(content.rstrip() + "\n", encoding="utf-8")
+
+
+def render_source_manifest(
+    book_title: str,
+    target_agent: str,
+    source: str,
+    project_slug: str,
+) -> str:
+    values = {
+        "project": project_slug,
+        "source_type": "book",
+        "source_name": book_title,
+        "source_url": source,
+        "owner": "",
+        "created": date.today().isoformat(),
+        "status": "novo",
+        "target_agents": [target_agent],
+        "probable_outputs": [],
+    }
+    target_agents = "\n".join(f'  - {json.dumps(agent, ensure_ascii=False)}' for agent in values["target_agents"])
+    if not target_agents:
+        target_agents = "  []"
+    return f"""---
+project: {json.dumps(values['project'], ensure_ascii=False)}
+source_type: {json.dumps(values['source_type'], ensure_ascii=False)}
+source_name: {json.dumps(values['source_name'], ensure_ascii=False)}
+source_url: {json.dumps(values['source_url'], ensure_ascii=False)}
+owner: ""
+created: {json.dumps(values['created'], ensure_ascii=False)}
+status: "novo"
+target_agents:
+{target_agents}
+probable_outputs: []
+---
+
+# Source Manifest — {book_title}
+
+Projeto editorial de livro para o agente `{target_agent}`.
+"""
+
+
+def render_promotion_matrix() -> str:
+    return """# Promotion Matrix
+
+Matriz para decidir o destino de conhecimento extraído do livro.
+
+| ID | Fonte/Unidade | Achado | Tipo | Destino | Confiança | Evidência | Arquivo Alvo | Próximo Teste |
+|---|---|---|---|---|---:|---|---|---|
+| P-001 |  |  |  |  |  |  |  |  |
+"""
 
 
 def render_readme(book_title: str, target_agent: str, source: str, index_filename: str) -> str:

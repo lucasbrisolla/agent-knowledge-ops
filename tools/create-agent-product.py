@@ -6,7 +6,16 @@ from __future__ import annotations
 import argparse
 from pathlib import Path
 
-from agent_product import ProductSpec, create_product, slugify
+from agent_product import (
+    DEFAULT_TARGET_USER,
+    PRODUCT_STATUSES,
+    RECOMMENDED_FORMS,
+    STATE_VALUES,
+    VERIFICATION_VALUES,
+    ProductSpec,
+    create_product,
+    slugify,
+)
 
 
 def main() -> int:
@@ -15,7 +24,7 @@ def main() -> int:
     parser.add_argument("--product-name", default="", help="Nome humano do agente-produto")
     parser.add_argument("--description", required=True, help="Papel e fronteira do produto")
     parser.add_argument("--domain", required=True, help="Domínio principal atendido")
-    parser.add_argument("--target-user", default="[definir]", help="Usuário ou perfil principal")
+    parser.add_argument("--target-user", default=DEFAULT_TARGET_USER, help="Usuário ou perfil principal")
     parser.add_argument(
         "--recurring-use",
         default="Uso recorrente ainda não definido na especificação inicial",
@@ -31,27 +40,18 @@ def main() -> int:
         default="especificação inicial do produto",
         help="Fonte, método ou especificação que originou o produto",
     )
-    parser.add_argument("--state-needed", choices=["yes", "no", "unknown"], default="unknown")
+    parser.add_argument("--state-needed", choices=STATE_VALUES, default="unknown")
     parser.add_argument(
         "--verification-needed",
-        choices=["none", "doctor", "verify", "sync-check", "liveness", "multiple"],
+        choices=VERIFICATION_VALUES,
         default="multiple",
     )
     parser.add_argument(
         "--recommended-form",
-        choices=[
-            "knowledge-base",
-            "method-wiki",
-            "skill",
-            "workflow",
-            "light-assistant",
-            "structured-operator",
-            "domain-operating-system",
-            "local-first-platform",
-        ],
+        choices=RECOMMENDED_FORMS,
         default="structured-operator",
     )
-    parser.add_argument("--status", choices=["candidate", "pilot"], default="candidate")
+    parser.add_argument("--status", choices=PRODUCT_STATUSES, default="candidate")
     parser.add_argument("--force", action="store_true", help="Completa pasta existente sem sobrescrever arquivos")
     args = parser.parse_args()
 

@@ -12,8 +12,8 @@ Biblioteca local de transcrições do canal ou playlist `[nome]`, gerada a parti
 ## Estrutura
 
 - `raw/`: arquivos brutos baixados pelo `yt-dlp`.
-- `videos/`: notas Markdown por vídeo, organizadas por categoria.
-- `index.md`: catálogo principal.
+- `library/videos/`: notas Markdown por vídeo, organizadas por categoria.
+- `library/index.md`: catálogo principal.
 - `missing-videos.tsv`: vídeos faltantes ou indisponíveis.
 - `distillations/`: destilações selecionadas.
 - `promotions/`: decisões de promoção.
@@ -39,7 +39,7 @@ yt-dlp "URL_DO_CANAL_OU_PLAYLIST" \
 ## Comando Para Gerar A Biblioteca
 
 ```bash
-python3 tools/build-youtube-library.py --overwrite
+python3 tools/build-youtube-library.py --project caminho/do/projeto --overwrite
 ```
 
 ## Taxonomia Inicial

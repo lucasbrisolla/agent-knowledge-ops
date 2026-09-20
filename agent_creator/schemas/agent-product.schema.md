@@ -16,7 +16,7 @@ Contrato mínimo para uma casa operacional de agente criada a partir de uma espe
 | `repeated_output` | sim | Artefato ou saída que tende a se repetir |
 | `state_needed` | sim | `yes`, `no` ou `unknown` |
 | `verification_needed` | sim | `none`, `doctor`, `verify`, `sync-check`, `liveness` ou `multiple` |
-| `recommended_form` | sim | Forma operacional recomendada |
+| `recommended_form` | sim | Forma operacional recomendada: `do-not-promote`, `knowledge-base`, `method-wiki`, `skill`, `workflow`, `light-assistant`, `structured-operator`, `domain-operating-system`, `local-first-platform` ou `wait-for-real-use` |
 | `status` | sim | `candidate`, `pilot`, `active`, `paused` ou `archived` |
 
 ## Regras

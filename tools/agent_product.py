@@ -11,6 +11,11 @@ if str(ROOT) not in sys.path:
     sys.path.insert(0, str(ROOT))
 
 from agent_creator.core import (  # noqa: E402
+    DEFAULT_TARGET_USER,
+    PRODUCT_STATUSES,
+    RECOMMENDED_FORMS,
+    STATE_VALUES,
+    VERIFICATION_VALUES,
     ProductSpec,
     create_from_spec,
     create_product,
@@ -21,6 +26,11 @@ from agent_creator.core import (  # noqa: E402
 
 __all__ = [
     "ProductSpec",
+    "DEFAULT_TARGET_USER",
+    "PRODUCT_STATUSES",
+    "RECOMMENDED_FORMS",
+    "STATE_VALUES",
+    "VERIFICATION_VALUES",
     "create_from_spec",
     "create_product",
     "load_spec",

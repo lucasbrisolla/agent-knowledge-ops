@@ -22,6 +22,7 @@ Uma ideia só deve virar framework, skill ou ferramenta quando tiver:
 | `book-distillation` | iniciado | Destilar livros por capítulo para conhecimento de agente |
 | `book-collection-setup` | iniciado | Criar README editorial e índice de livros no padrão `books/` |
 | `book-to-method-wiki` | iniciado | Promover capítulos de livros para `_method-wiki` com baixo risco de erro |
+| `book-source-intake` | iniciado | Extrair livros para `raw/` e gerar índice navegável em `library/` |
 | `knowledge-synthesis` | iniciado | Sintetizar evidências de múltiplas fontes antes da promoção |
 | `company-web-research` | iniciado | Fazer pesquisa web rastreável sobre empresas, JVs e controladoras antes da destilação |
 | `social-signal-research` | planejado | Transformar Reddit, HN, X, YouTube e comunidades em sinais |
@@ -83,6 +84,7 @@ Status:
 - templates criados
 - skill criada
 - ferramenta `create-source-project.py` criada
+- contrato executável e `validate-source-project.py` criados
 
 ## Knowledge Synthesis
 
@@ -148,6 +150,7 @@ Status:
 - templates genéricos e schema movidos para o módulo;
 - criação a partir de especificação Markdown adicionada;
 - validação de enums e campos editoriais adicionada;
+- enums, defaults e valores expostos pela CLI alinhados ao contrato do core;
 - adapters legados preservados.
 
 Próximos passos:
